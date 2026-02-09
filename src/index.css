@@ -1,0 +1,84 @@
+/* ===== CSS Custom Properties ===== */
+:root {
+  /* Colors — warm neutral palette with a single accent */
+  --bg-primary: #fafaf9;
+  --bg-secondary: #f5f5f4;
+  --bg-card: #ffffff;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #a8a29e;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-subtle: #dbeafe;
+  --border: #e7e5e4;
+  --border-hover: #d6d3d1;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Spacing */
+  --section-padding: clamp(4rem, 10vh, 8rem);
+  --container-max: 1080px;
+  --container-padding: clamp(1.5rem, 5vw, 3rem);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Reset ===== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  min-width: 320px;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); }
+h3 { font-size: 1.25rem; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
+ul { list-style: none; }
+
+img { max-width: 100%; display: block; }
+
+::selection {
+  background-color: var(--accent-subtle);
+  color: var(--text-primary);
+}
