@@ -1,67 +1,81 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
 
 const NAV_LINKS = [
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
-]
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Contact", href: "#contact" },
+];
 
 const PROJECTS = [
   {
-    title: 'Financial Statement Analyzer',
+    title: "BlogList Application",
     description:
-      'Full-stack financial services app that imports statements from PDF and CSV uploads, parses them with custom logic tailored for financial institution formats, and provides transaction categorization and data visualization.',
-    tech: ['React', 'Node.js', 'Express', 'MongoDB'],
-    github: 'https://github.com/CadenceElaina/vireofi',
-    live: null,
-    images: ['/image4.png', '/image5.png', '/image6.png'],
-    video: null,
+      "Full-stack blog platform with user authentication, CRUD operations, and a comprehensive test suite. Features reusable React UI components, JWT-based auth with session management, and a RESTful API. Deployed to production on Render.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Jest"],
+    github: "https://github.com/CadenceElaina/bloglist",
+    live: "https://bloglist-17lz.onrender.com/",
+    images: [
+      "/image1.png",
+      "/image2.png",
+      "/image3.png",
+      "/image4.png",
+      "/image5.png",
+    ],
+    video: "https://youtu.be/1Fh3IfKdhSM",
   },
   {
-    title: 'BlogList Application',
+    title: "Financial Statement Analyzer",
     description:
-      'Full-stack blog platform with reusable React UI components, JWT-based authentication and session management, RESTful API architecture, and a comprehensive Jest test suite. Deployed to production on Render.',
-    tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Jest'],
-    github: 'https://github.com/CadenceElaina/bloglist',
-    live: 'https://bloglist-17lz.onrender.com/',
-    images: ['/image.png', '/image1.png', '/image2.png', '/image3.png'],
-    video: 'https://youtu.be/miijkrd459o',
+      "Full-stack financial services app that imports statements from PDF and CSV uploads, parses them with custom logic tailored for financial institution formats, and provides transaction categorization and data visualization.",
+    tech: ["React", "Node.js", "Express", "MongoDB"],
+    github: "https://github.com/CadenceElaina/vireofi",
+    live: null,
+    images: [],
+    video: null,
   },
-]
+];
 
 const SKILLS = [
   {
-    category: 'Languages',
-    items: ['JavaScript (ES6+)', 'Java', 'Python', 'C#', 'SQL'],
+    category: "Languages",
+    items: ["JavaScript (ES6+)", "Java", "Python", "C#", "SQL"],
   },
   {
-    category: 'Frontend',
-    items: ['React', 'HTML/CSS', 'Responsive Design'],
+    category: "Frontend",
+    items: ["React", "HTML5/CSS3", "Responsive Design"],
   },
   {
-    category: 'Backend',
-    items: ['Node.js', 'Express', 'Spring Boot', 'REST APIs'],
+    category: "Backend",
+    items: ["Node.js", "Express", "Spring Boot", "REST APIs"],
   },
   {
-    category: 'Databases & Tools',
-    items: ['MongoDB', 'PostgreSQL', 'Git', 'GitHub', 'Postman', 'Linux/Unix'],
+    category: "Databases",
+    items: ["MongoDB", "PostgreSQL"],
   },
-]
+  {
+    category: "Tools & Platforms",
+    items: ["Git", "GitHub", "Postman", "Linux/Unix", "VS Code"],
+  },
+  {
+    category: "Testing",
+    items: ["Jest", "Unit Testing", "API Testing"],
+  },
+];
 
 function Nav() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className={`nav${scrolled ? ' scrolled' : ''}`}>
+    <nav className={`nav${scrolled ? " scrolled" : ""}`}>
       <div className="nav-inner container">
         <a href="#" className="nav-logo">
           Cadence Anderson
@@ -75,16 +89,24 @@ function Nav() {
           <span />
           <span />
         </button>
-        <div className={`nav-links${menuOpen ? ' open' : ''}`}>
+        <div className={`nav-links${menuOpen ? " open" : ""}`}>
           {NAV_LINKS.map(({ label, href }) => (
             <a key={href} href={href} onClick={() => setMenuOpen(false)}>
               {label}
             </a>
           ))}
+          <a
+            href="/resume.pdf"
+            download
+            className="nav-resume-btn"
+            onClick={() => setMenuOpen(false)}
+          >
+            Resume
+          </a>
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 function Hero() {
@@ -103,26 +125,35 @@ function Hero() {
             <a href="#projects" className="btn btn-primary">
               View my work ↓
             </a>
-            <a
-              href="/resume.pdf"
-              download
-              className="btn btn-secondary"
-            >
+            <a href="/resume.pdf" download className="btn btn-secondary">
               Resume ↓
             </a>
+          </div>
+          <div className="hero-socials">
             <a
               href="https://github.com/CadenceElaina"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-secondary"
+              title="GitHub"
             >
-              GitHub →
+              GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/cadence-anderson-7a6a6737a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="LinkedIn"
+            >
+              LinkedIn
+            </a>
+            <a href="mailto:cadence.anderson88@gmail.com" title="Email">
+              cadence.anderson88@gmail.com
             </a>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function About() {
@@ -138,14 +169,16 @@ function About() {
             <p>
               I'm a career-changer who spent over three years at Wells Fargo
               Advisors — first as an Investment Consultant, then as a Financial
-              Advisor. I managed client relationships, executed trades, and recognized opportunties to improve effeciency within systems used nationally by advisors.
+              Advisor. I managed client relationships, executed trades, and
+              recognized opportunities to improve efficiency within systems used
+              nationally by advisors.
             </p>
             <p>
-              In January 2026 I went back full time at UNCC to pursue computer science
-              full-time. But the transition started long before that — I
-              completed the University of Helsinki's Java MOOC, Full Stack Open
-              (Parts 1–9), freeCodeCamp's courses and built multiple full-stack applications and continued my edcuation on my own
-              time.
+              In January 2026 I returned to UNCC full-time to pursue computer
+              science. But the transition started long before that — I completed
+              the University of Helsinki's Java MOOC, Full Stack Open (Parts
+              1–9), freeCodeCamp's courses and built multiple full-stack
+              applications on my own time.
             </p>
             <p>
               I'm drawn to backend and full-stack engineering, especially in
@@ -157,12 +190,8 @@ function About() {
           <div className="about-details">
             <div className="detail-item">
               <p className="detail-label">Education</p>
-              <p className="detail-value">
-                B.S. Computer Science — UNCC
-              </p>
-              <p className="detail-label" style={{ marginTop: '0.25rem' }}>
-                Expected Spring 2028 · GPA 3.66
-              </p>
+              <p className="detail-value">B.S. Computer Science — UNCC</p>
+              <p className="detail-sub">Expected Spring 2028 · GPA 3.66</p>
             </div>
             <div className="detail-item">
               <p className="detail-label">Concentration</p>
@@ -174,27 +203,30 @@ function About() {
             </div>
             <div className="detail-item">
               <p className="detail-label">Relevant Coursework</p>
-              <p className="detail-value" style={{ fontSize: '0.85rem' }}>
-                Data Structures &amp; Algorithms, Intro to Computer Systems, Java
-                OOP I &amp; II, Full Stack Open (Parts 1–9)
+              <p className="detail-value detail-value-sm">
+                Data Structures &amp; Algorithms · Intro to Computer Systems ·
+                Java OOP I &amp; II · Full Stack Open (Parts 1–9)
               </p>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function ProjectCard({ project }) {
-  const [currentImg, setCurrentImg] = useState(0)
-  const images = project.images || []
+  const [currentImg, setCurrentImg] = useState(0);
+  const images = project.images || [];
 
-  const nextImg = () => setCurrentImg((i) => (i + 1) % images.length)
-  const prevImg = () => setCurrentImg((i) => (i - 1 + images.length) % images.length)
+  const nextImg = () => setCurrentImg((i) => (i + 1) % images.length);
+  const prevImg = () =>
+    setCurrentImg((i) => (i - 1 + images.length) % images.length);
 
   return (
-    <div className="project-card">
+    <div
+      className={`project-card${images.length === 0 ? " project-card-compact" : ""}`}
+    >
       {images.length > 0 && (
         <div className="project-image-wrapper">
           <img
@@ -204,13 +236,25 @@ function ProjectCard({ project }) {
           />
           {images.length > 1 && (
             <>
-              <button className="img-nav img-nav-prev" onClick={prevImg} aria-label="Previous image">‹</button>
-              <button className="img-nav img-nav-next" onClick={nextImg} aria-label="Next image">›</button>
+              <button
+                className="img-nav img-nav-prev"
+                onClick={prevImg}
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
+              <button
+                className="img-nav img-nav-next"
+                onClick={nextImg}
+                aria-label="Next image"
+              >
+                ›
+              </button>
               <div className="img-dots">
                 {images.map((_, i) => (
                   <button
                     key={i}
-                    className={`img-dot${i === currentImg ? ' active' : ''}`}
+                    className={`img-dot${i === currentImg ? " active" : ""}`}
                     onClick={() => setCurrentImg(i)}
                     aria-label={`Go to image ${i + 1}`}
                   />
@@ -224,16 +268,31 @@ function ProjectCard({ project }) {
         <div className="project-header">
           <h3 className="project-title">{project.title}</h3>
           <div className="project-links">
-            <a href={project.github} target="_blank" rel="noopener noreferrer">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-link-btn"
+            >
               GitHub ↗
             </a>
             {project.live && (
-              <a href={project.live} target="_blank" rel="noopener noreferrer">
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-link-btn"
+              >
                 Live ↗
               </a>
             )}
             {project.video && (
-              <a href={project.video} target="_blank" rel="noopener noreferrer">
+              <a
+                href={project.video}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-link-btn project-link-btn-accent"
+              >
                 Demo ▶
               </a>
             )}
@@ -249,7 +308,7 @@ function ProjectCard({ project }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function Projects() {
@@ -267,7 +326,7 @@ function Projects() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function Skills() {
@@ -294,7 +353,7 @@ function Skills() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function Contact() {
@@ -311,23 +370,31 @@ function Contact() {
           <div className="contact-links">
             <a
               href="mailto:cadence.anderson88@gmail.com"
-              className="contact-link"
+              className="contact-link-btn"
             >
-              ✉ cadence.anderson88@gmail.com
+              ✉ Email me
+            </a>
+            <a
+              href="https://www.linkedin.com/in/cadence-anderson-7a6a6737a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-link-btn"
+            >
+              LinkedIn →
             </a>
             <a
               href="https://github.com/CadenceElaina"
               target="_blank"
               rel="noopener noreferrer"
-              className="contact-link"
+              className="contact-link-btn"
             >
-              ⌨ GitHub
+              GitHub →
             </a>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function Footer() {
@@ -337,7 +404,7 @@ function Footer() {
         <p>© {new Date().getFullYear()} Cadence Anderson</p>
       </div>
     </footer>
-  )
+  );
 }
 
 function App() {
@@ -348,11 +415,12 @@ function App() {
         <Hero />
         <About />
         <Projects />
+        <Skills />
         <Contact />
       </main>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
