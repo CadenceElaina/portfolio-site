@@ -14,7 +14,7 @@ Charlotte, NC • cadence.anderson88@gmail.com • 704-315-9360 • [github.com/
 
 **Languages:** JavaScript (ES6+), C\#, Java, Python, SQL
 
-**Frameworks/Libs:** Spring Boot, React, Node.js, Express.js, Jest
+**Frameworks/Libs:** React, Node.js, Express.js, Jest
 
 **Databases/Tools:** MongoDBm , PostgreSQL, Git, GitHub, Postman, Linux/Unix, REST APIs, VSCode, Copilot, Claude
 

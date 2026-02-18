@@ -96,10 +96,10 @@ function Nav() {
             </a>
           ))}
           <a
-            href="/resume.pdf"
-            download
+            href="/resume26.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="nav-resume-btn"
-            onClick={() => setMenuOpen(false)}
           >
             Resume
           </a>
@@ -125,7 +125,7 @@ function Hero() {
             <a href="#projects" className="btn btn-primary">
               View my work ↓
             </a>
-            <a href="/resume.pdf" download className="btn btn-secondary">
+            <a href="/resume26.pdf" download className="btn btn-secondary">
               Resume ↓
             </a>
           </div>
@@ -178,7 +178,7 @@ function About() {
               science. But the transition started long before that — I completed
               the University of Helsinki's Java MOOC, Full Stack Open (Parts
               1–9), freeCodeCamp's courses and built multiple full-stack
-              applications on my own time.
+              applications.
             </p>
             <p>
               I'm drawn to backend and full-stack engineering, especially in
