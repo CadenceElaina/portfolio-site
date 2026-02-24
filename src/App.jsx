@@ -28,7 +28,7 @@ const PROJECTS = [
   {
     title: "Financial Statement Analyzer",
     description:
-      "Full-stack financial services app that imports statements from PDF and CSV uploads, parses them with custom logic tailored for financial institution formats, and provides transaction categorization and data visualization.",
+      "Full-stack financial services app that imports statements from PDF and CSV uploads, parses and cleans data with custom logic tailored for financial institution formats, and provides automated transaction categorization, spending pattern analysis, and interactive data visualizations.",
     tech: ["React", "Node.js", "Express", "MongoDB"],
     github: "https://github.com/CadenceElaina/vireofi",
     live: null,
@@ -40,7 +40,7 @@ const PROJECTS = [
 const SKILLS = [
   {
     category: "Languages",
-    items: ["JavaScript (ES6+)", "Java", "Python", "C#", "SQL"],
+    items: ["JavaScript (ES6+)", "Java", "Python", "SQL"],
   },
   {
     category: "Frontend",
@@ -57,6 +57,10 @@ const SKILLS = [
   {
     category: "Tools & Platforms",
     items: ["Git", "GitHub", "Postman", "Linux/Unix", "VS Code"],
+  },
+  {
+    category: "Data Science",
+    items: ["pandas", "NumPy", "Matplotlib", "Jupyter Notebooks"],
   },
   {
     category: "Testing",
@@ -96,7 +100,7 @@ function Nav() {
             </a>
           ))}
           <a
-            href="/resume26.pdf"
+            href="/swe-resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-resume-btn"
@@ -118,14 +122,14 @@ function Hero() {
           <h1>Cadence Anderson</h1>
           <p className="hero-description">
             Software engineer and former financial professional. I build
-            full-stack web applications and I'm pursuing a B.S. in Computer
-            Science at UNC Charlotte.
+            full-stack web applications, work with data, and I'm pursuing a B.S.
+            in Computer Science (Data Science concentration) at UNC Charlotte.
           </p>
           <div className="hero-cta">
             <a href="#projects" className="btn btn-primary">
               View my work ↓
             </a>
-            <a href="/resume26.pdf" download className="btn btn-secondary">
+            <a href="/swe-resume.pdf" download className="btn btn-secondary">
               Resume ↓
             </a>
           </div>
@@ -176,15 +180,14 @@ function About() {
             <p>
               In January 2026 I returned to UNCC full-time to pursue computer
               science. But the transition started long before that — I completed
-              the University of Helsinki's Java MOOC, Full Stack Open (Parts
-              1–9), freeCodeCamp's courses and built multiple full-stack
-              applications.
+              the University of Helsinki's Java MOOC, Full Stack Open,
+              freeCodeCamp's courses and built multiple full-stack applications.
             </p>
             <p>
-              I'm drawn to backend and full-stack engineering, especially in
-              fintech where I can leverage my domain knowledge. I care about
-              writing clean, testable code and building things that solve real
-              problems.
+              I'm drawn to backend and full-stack engineering, with a growing
+              focus on data science and analytics — especially in fintech where
+              I can leverage my domain knowledge. I enjoy turning complex data
+              into useful insights and building things that solve real problems.
             </p>
           </div>
           <div className="about-details">
@@ -195,7 +198,7 @@ function About() {
             </div>
             <div className="detail-item">
               <p className="detail-label">Concentration</p>
-              <p className="detail-value">Networks &amp; Systems</p>
+              <p className="detail-value">Data Science</p>
             </div>
             <div className="detail-item">
               <p className="detail-label">Minor</p>
@@ -205,7 +208,8 @@ function About() {
               <p className="detail-label">Relevant Coursework</p>
               <p className="detail-value detail-value-sm">
                 Data Structures &amp; Algorithms · Intro to Computer Systems ·
-                Java OOP I &amp; II · Full Stack Open (Parts 1–9)
+                Java OOP I &amp; II · Full Stack Open · Statistics for Computer
+                Science
               </p>
             </div>
           </div>
