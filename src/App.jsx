@@ -10,6 +10,16 @@ const NAV_LINKS = [
 
 const PROJECTS = [
   {
+    title: "Finch",
+    description:
+      "Google Finance-inspired market intelligence dashboard with live stock data, watchlists, and portfolio tracking. Integrated Google Gemini AI to generate contextual market summaries and answer user queries about holdings. Built with React, TypeScript, and Vite; deployed to Vercel with CI/CD.",
+    tech: ["React", "TypeScript", "Vite", "Node.js", "Gemini AI"],
+    github: "https://github.com/CadenceElaina/finch",
+    live: "https://finch-dashboard.vercel.app",
+    images: [],
+    video: null,
+  },
+  {
     title: "BlogList Application",
     description:
       "Full-stack blog platform with user authentication, CRUD operations, and a comprehensive test suite. Features reusable React UI components, JWT-based auth with session management, and a RESTful API. Deployed to production on Render.",
@@ -40,11 +50,11 @@ const PROJECTS = [
 const SKILLS = [
   {
     category: "Languages",
-    items: ["JavaScript (ES6+)", "Java", "Python", "SQL"],
+    items: ["JavaScript (ES6+)", "TypeScript", "Java", "Python", "SQL"],
   },
   {
     category: "Frontend",
-    items: ["React", "HTML5/CSS3", "Responsive Design"],
+    items: ["React", "Vite", "HTML5/CSS3", "Responsive Design"],
   },
   {
     category: "Backend",
@@ -57,10 +67,6 @@ const SKILLS = [
   {
     category: "Tools & Platforms",
     items: ["Git", "GitHub", "Postman", "Linux/Unix", "VS Code"],
-  },
-  {
-    category: "Data Science",
-    items: ["pandas", "NumPy", "Matplotlib", "Jupyter Notebooks"],
   },
   {
     category: "Testing",
@@ -121,9 +127,10 @@ function Hero() {
           <p className="hero-greeting">Hi, I'm</p>
           <h1>Cadence Anderson</h1>
           <p className="hero-description">
-            Software engineer and former financial professional. I build
-            full-stack web applications, work with data, and I'm pursuing a B.S.
-            in Computer Science (Data Science concentration) at UNC Charlotte.
+            Software engineer and former financial professional with six years
+            in the industry — from teller to financial advisor. I build
+            full-stack web applications and I'm pursuing a B.S. in Computer
+            Science (Data Science concentration) at UNC Charlotte.
           </p>
           <div className="hero-cta">
             <a href="#projects" className="btn btn-primary">
@@ -171,45 +178,42 @@ function About() {
         <div className="about-content">
           <div className="about-text">
             <p>
-              I'm a career-changer who spent over three years at Wells Fargo
-              Advisors — first as an Investment Consultant, then as a Financial
-              Advisor. I managed client relationships, executed trades, and
-              recognized opportunities to improve efficiency within systems used
-              nationally by advisors.
+              I spent six years in financial services at Wells Fargo — starting
+              as a teller and working up to Financial Advisor, where I managed
+              client relationships, executed trades, and identified process
+              improvements adopted by 200+ advisors nationally.
             </p>
             <p>
-              In January 2026 I returned to UNCC full-time to pursue computer
-              science. But the transition started long before that — I completed
-              the University of Helsinki's Java MOOC, Full Stack Open,
-              freeCodeCamp's courses and built multiple full-stack applications.
+              In February 2026 I resigned to return to UNCC full-time and finish
+              my Computer Science degree. The transition started well before
+              that — I completed the University of Helsinki's Java MOOC and Full
+              Stack Open, earned freeCodeCamp certifications, and built multiple
+              full-stack applications before ever setting foot back in a
+              classroom.
             </p>
             <p>
-              I'm drawn to backend and full-stack engineering, with a growing
-              focus on data science and analytics — especially in fintech where
-              I can leverage my domain knowledge. I enjoy turning complex data
-              into useful insights and building things that solve real problems.
+              I'm targeting backend and full-stack engineering roles, with a
+              focus on fintech — where I can put six years of domain knowledge
+              to work alongside my technical skills. I'm looking for a summer
+              2027 internship and full-time roles after graduation.
             </p>
           </div>
           <div className="about-details">
             <div className="detail-item">
               <p className="detail-label">Education</p>
               <p className="detail-value">B.S. Computer Science — UNCC</p>
-              <p className="detail-sub">Expected Spring 2028 · GPA 3.66</p>
+              <p className="detail-sub">Expected Fall 2027 · GPA 3.66</p>
             </div>
             <div className="detail-item">
               <p className="detail-label">Concentration</p>
               <p className="detail-value">Data Science</p>
             </div>
             <div className="detail-item">
-              <p className="detail-label">Minor</p>
-              <p className="detail-value">Mathematics</p>
-            </div>
-            <div className="detail-item">
               <p className="detail-label">Relevant Coursework</p>
               <p className="detail-value detail-value-sm">
-                Data Structures &amp; Algorithms · Intro to Computer Systems ·
-                Java OOP I &amp; II · Full Stack Open · Statistics for Computer
-                Science
+                Data Structures &amp; Algorithms · Discrete Mathematics ·
+                Calculus II · Intro to Computer Systems · Statistics for
+                Computer Science
               </p>
             </div>
           </div>
@@ -368,8 +372,10 @@ function Contact() {
           <p className="section-label">Contact</p>
           <h2>Let's connect</h2>
           <p className="contact-description">
-            I'm currently looking for software engineering internship
-            opportunities. Feel free to reach out — I'd love to chat.
+            I'm actively looking for software engineering internship
+            opportunities for summer 2027 and full-time roles after graduation.
+            If you're working on something interesting — especially in fintech
+            or data — I'd love to connect.
           </p>
           <div className="contact-links">
             <a
