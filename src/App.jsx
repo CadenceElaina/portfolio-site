@@ -13,7 +13,15 @@ const FEATURED_PROJECTS = [
     title: "Finch",
     description:
       "Google Finance-inspired market intelligence dashboard with live stock data, watchlists, and portfolio tracking. Features a 4-tier API fallback chain with circuit breakers and request deduplication. Integrated Gemini AI for contextual market summaries, multi-turn research chat, and portfolio commentary with a credit system and daily caching. Seamless demo mode auto-activates on rate limits. Deployed to Vercel with CI/CD via GitHub Actions (160+ commits).",
-    tech: ["React", "TypeScript", "Vite", "TanStack Query", "Gemini AI", "Redis", "Vercel"],
+    tech: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "TanStack Query",
+      "Gemini AI",
+      "Redis",
+      "Vercel",
+    ],
     github: "https://github.com/CadenceElaina/finch",
     live: "https://finch-jade.vercel.app/",
     images: [
@@ -30,7 +38,14 @@ const FEATURED_PROJECTS = [
     title: "NeetCode SRS",
     description:
       "Free, open-source spaced repetition system for LeetCode interview prep built around the NeetCode 150. Uses a modified FSRS algorithm to schedule reviews based on retention probability. Features attempt logging, mock interview mode, pattern drills, NeetCode activity import, and an interview readiness score with tier ranking. Actively maintained with community users and feedback.",
-    tech: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle", "Supabase", "Tailwind CSS"],
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Drizzle",
+      "Supabase",
+      "Tailwind CSS",
+    ],
     github:
       "https://github.com/CadenceElaina/neetcode-spaced-repetition-system",
     live: "https://leetcode-spaced-repetition-system.vercel.app/dashboard",
@@ -50,8 +65,16 @@ const OTHER_PROJECTS = [
   {
     title: "Journal",
     description:
-      "Full-stack journaling app with production-grade authentication — JWT access/refresh token rotation with cross-tab synchronization (Web Locks API → BroadcastChannel fallback), TOTP-based 2FA with hashed backup codes, and account lockout. Rate limiting, Helmet.js security headers, and input sanitization. Full-text search with MongoDB text indexes, rich text editing, and a one-click demo system. 59 integration tests across 4 suites (Jest + Supertest + in-memory MongoDB).",
-    tech: ["React", "Node.js", "Express", "MongoDB", "JWT", "Jest", "Supertest"],
+      "Full-stack journaling app with production-grade auth (JWT access/refresh token rotation, TOTP 2FA with hashed backup codes, account lockout after failed attempts), cross-tab token synchronization via a 3-tier fallback (Web Locks API → BroadcastChannel → localStorage) to prevent race conditions during concurrent refresh. 59 integration tests covering authorization, token invalidation, and pagination edge cases. Isolated demo system with auto-generated sessions, seeded data, and cron-based cleanup. Built with React 19, Express v5, and MongoDB.",
+    tech: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "JWT",
+      "Jest",
+      "Supertest",
+    ],
     github: "https://github.com/CadenceElaina/journal",
     live: "https://journal-yje6.onrender.com/auth/login",
     images: ["/journal.png", "/journal1.png", "/journal2.png", "/journal3.png"],
