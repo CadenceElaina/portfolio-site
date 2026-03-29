@@ -29,7 +29,7 @@ const FEATURED_PROJECTS = [
   {
     title: "NeetCode Spaced Repetition System",
     description:
-      "Spaced repetition scheduler for the NeetCode 150. Uses the FSRS algorithm to optimize review intervals, track mastery across problem categories, and surface the right problems at the right time. Self-hosted with GitHub OAuth. Built with Next.js and PostgreSQL on Supabase.",
+      "Open-source spaced repetition scheduler for the NeetCode 150. Uses the FSRS algorithm to optimize review intervals, track mastery across problem categories, and surface the right problems at the right time. Self-hosted with GitHub OAuth. Built with Next.js and PostgreSQL on Supabase.",
     tech: ["Next.js", "React", "PostgreSQL", "Supabase", "Tailwind CSS"],
     github:
       "https://github.com/CadenceElaina/neetcode-spaced-repetition-system",
