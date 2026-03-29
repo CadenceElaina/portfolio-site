@@ -12,8 +12,8 @@ const FEATURED_PROJECTS = [
   {
     title: "Finch",
     description:
-      "Google Finance-inspired market intelligence dashboard with live stock data, watchlists, and portfolio tracking. Integrated Google Gemini AI to generate contextual market summaries and answer user queries about holdings. Built with React, TypeScript, and Vite; deployed to Vercel with CI/CD.",
-    tech: ["React", "TypeScript", "Vite", "Node.js", "Gemini AI"],
+      "Google Finance-inspired market intelligence dashboard with live stock data, watchlists, and portfolio tracking. Features a 4-tier API fallback chain with circuit breakers and request deduplication. Integrated Gemini AI for contextual market summaries, multi-turn research chat, and portfolio commentary with a credit system and daily caching. Seamless demo mode auto-activates on rate limits. Deployed to Vercel with CI/CD via GitHub Actions (160+ commits).",
+    tech: ["React", "TypeScript", "Vite", "TanStack Query", "Gemini AI", "Redis", "Vercel"],
     github: "https://github.com/CadenceElaina/finch",
     live: "https://finch-jade.vercel.app/",
     images: [
@@ -27,10 +27,10 @@ const FEATURED_PROJECTS = [
     video: "https://youtu.be/17KT8b5eZ8M",
   },
   {
-    title: "NeetCode Spaced Repetition System",
+    title: "NeetCode SRS",
     description:
-      "Open-source spaced repetition scheduler for the NeetCode 150. Uses the FSRS algorithm to optimize review intervals, track mastery across problem categories, and surface the right problems at the right time. Self-hosted with GitHub OAuth. Built with Next.js and PostgreSQL on Supabase.",
-    tech: ["Next.js", "React", "PostgreSQL", "Supabase", "Tailwind CSS"],
+      "Free, open-source spaced repetition system for LeetCode interview prep built around the NeetCode 150. Uses a modified FSRS algorithm to schedule reviews based on retention probability. Features attempt logging, mock interview mode, pattern drills, NeetCode activity import, and an interview readiness score with tier ranking. Actively maintained with community users and feedback.",
+    tech: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle", "Supabase", "Tailwind CSS"],
     github:
       "https://github.com/CadenceElaina/neetcode-spaced-repetition-system",
     live: "https://leetcode-spaced-repetition-system.vercel.app/dashboard",
@@ -50,18 +50,18 @@ const OTHER_PROJECTS = [
   {
     title: "Journal",
     description:
-      "Full-stack blog platform with user authentication, CRUD operations, and a comprehensive test suite. Features reusable React UI components, JWT-based auth with session management, and a RESTful API. Deployed to production on Render.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "Jest"],
+      "Full-stack journaling app with production-grade authentication — JWT access/refresh token rotation with cross-tab synchronization (Web Locks API → BroadcastChannel fallback), TOTP-based 2FA with hashed backup codes, and account lockout. Rate limiting, Helmet.js security headers, and input sanitization. Full-text search with MongoDB text indexes, rich text editing, and a one-click demo system. 59 integration tests across 4 suites (Jest + Supertest + in-memory MongoDB).",
+    tech: ["React", "Node.js", "Express", "MongoDB", "JWT", "Jest", "Supertest"],
     github: "https://github.com/CadenceElaina/journal",
     live: "https://journal-yje6.onrender.com/auth/login",
     images: ["/journal.png", "/journal1.png", "/journal2.png", "/journal3.png"],
     video: "https://youtu.be/0oOCY7_ohQY",
   },
   {
-    title: "Financial Statement Analyzer",
+    title: "VireoFi",
     description:
-      "Full-stack financial services app that imports statements from PDF and CSV uploads, parses and cleans data with custom logic tailored for financial institution formats, and provides automated transaction categorization, spending pattern analysis, and interactive data visualizations.",
-    tech: ["React", "Node.js", "Express", "MongoDB"],
+      "Self-hosted personal finance dashboard. Multi-stage import pipeline for CSV and PDF bank statements with format-specific parsers, a 4-priority merchant matching engine with confidence scoring, transaction fingerprinting for duplicate detection, and time-aware financial projections. Budget tracking, net worth monitoring, cash flow analysis, and goal management. Dockerized deployment.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Docker", "Chart.js"],
     github: "https://github.com/CadenceElaina/vireofi",
     live: null,
     images: [
@@ -85,7 +85,7 @@ const SKILLS = [
   },
   {
     category: "Frontend",
-    items: ["React", "Vite", "HTML5/CSS3", "Responsive Design"],
+    items: ["React", "Next.js", "Vite", "Tailwind CSS"],
   },
   {
     category: "Backend",
@@ -97,11 +97,11 @@ const SKILLS = [
   },
   {
     category: "Tools & Platforms",
-    items: ["Git", "GitHub", "Postman", "Linux/Unix", "VS Code"],
+    items: ["Git", "GitHub", "Docker", "Postman", "Linux/Unix", "Vercel"],
   },
   {
     category: "Testing",
-    items: ["Jest", "Unit Testing", "API Testing"],
+    items: ["Jest", "Supertest", "Integration Testing"],
   },
 ];
 
