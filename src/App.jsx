@@ -16,7 +16,14 @@ const PROJECTS = [
     tech: ["React", "TypeScript", "Vite", "Node.js", "Gemini AI"],
     github: "https://github.com/CadenceElaina/finch",
     live: "https://finch-jade.vercel.app/",
-    images: [],
+    images: [
+      "/finch.png",
+      "/finch1.png",
+      "/finch2.png",
+      "/finch4.png",
+      "/finch5.png",
+      "/finch6.png",
+    ],
     video: "https://youtu.be/17KT8b5eZ8M",
   },
   {
