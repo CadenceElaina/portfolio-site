@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Sensitive planning/assessment docs
+assessment-ranking.md
+project-plan.md
+suggestions-criticisms.md
+timeline.md
+leetcode-neetcode-progress.md
+projects.md
