@@ -15,9 +15,9 @@ const PROJECTS = [
       "Google Finance-inspired market intelligence dashboard with live stock data, watchlists, and portfolio tracking. Integrated Google Gemini AI to generate contextual market summaries and answer user queries about holdings. Built with React, TypeScript, and Vite; deployed to Vercel with CI/CD.",
     tech: ["React", "TypeScript", "Vite", "Node.js", "Gemini AI"],
     github: "https://github.com/CadenceElaina/finch",
-    live: "https://finch-dashboard.vercel.app",
+    live: "https://finch-jade.vercel.app/",
     images: [],
-    video: null,
+    video: "https://youtu.be/17KT8b5eZ8M",
   },
   {
     title: "NeetCode Spaced Repetition System",
@@ -38,20 +38,14 @@ const PROJECTS = [
     video: null,
   },
   {
-    title: "BlogList Application",
+    title: "Journal",
     description:
       "Full-stack blog platform with user authentication, CRUD operations, and a comprehensive test suite. Features reusable React UI components, JWT-based auth with session management, and a RESTful API. Deployed to production on Render.",
     tech: ["React", "Node.js", "Express", "MongoDB", "Jest"],
-    github: "https://github.com/CadenceElaina/bloglist",
-    live: "https://bloglist-17lz.onrender.com/",
-    images: [
-      "/image1.png",
-      "/image2.png",
-      "/image3.png",
-      "/image4.png",
-      "/image5.png",
-    ],
-    video: "https://youtu.be/1Fh3IfKdhSM",
+    github: "https://github.com/CadenceElaina/journal",
+    live: "https://journal-yje6.onrender.com/auth/login",
+    images: ["/journal.png", "/journal1.png", "/journal2.png", "/journal3.png"],
+    video: "https://youtu.be/0oOCY7_ohQY",
   },
   {
     title: "Financial Statement Analyzer",
