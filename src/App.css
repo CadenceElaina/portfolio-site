@@ -345,9 +345,16 @@
 }
 
 /* ===== Projects ===== */
-.projects-grid {
+.projects-featured {
   display: grid;
   gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.projects-other {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
 }
 
 .project-card {
@@ -366,6 +373,23 @@
 
 .project-card-compact {
   border-left: 3px solid var(--accent);
+}
+
+/* Featured cards: side-by-side image + content */
+.project-card-featured {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+}
+
+.project-card-featured .project-image-wrapper {
+  aspect-ratio: auto;
+  min-height: 360px;
+}
+
+.project-card-featured .project-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .project-image-wrapper {
@@ -730,6 +754,19 @@
 
   .project-links {
     flex-wrap: wrap;
+  }
+
+  .project-card-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card-featured .project-image-wrapper {
+    min-height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .projects-other {
+    grid-template-columns: 1fr;
   }
 
   .skills-grid {

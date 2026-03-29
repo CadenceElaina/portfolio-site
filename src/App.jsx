@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
-const PROJECTS = [
+const FEATURED_PROJECTS = [
   {
     title: "Finch",
     description:
@@ -44,6 +44,9 @@ const PROJECTS = [
     ],
     video: null,
   },
+];
+
+const OTHER_PROJECTS = [
   {
     title: "Journal",
     description:
@@ -242,7 +245,7 @@ function About() {
   );
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, featured }) {
   const [currentImg, setCurrentImg] = useState(0);
   const images = project.images || [];
 
@@ -250,10 +253,16 @@ function ProjectCard({ project }) {
   const prevImg = () =>
     setCurrentImg((i) => (i - 1 + images.length) % images.length);
 
+  const cardClass = [
+    "project-card",
+    featured ? "project-card-featured" : "",
+    images.length === 0 ? "project-card-compact" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div
-      className={`project-card${images.length === 0 ? " project-card-compact" : ""}`}
-    >
+    <div className={cardClass}>
       {images.length > 0 && (
         <div className="project-image-wrapper">
           <img
@@ -346,8 +355,13 @@ function Projects() {
           <p className="section-label">Projects</p>
           <h2>Things I've built</h2>
         </div>
-        <div className="projects-grid">
-          {PROJECTS.map((project) => (
+        <div className="projects-featured">
+          {FEATURED_PROJECTS.map((project) => (
+            <ProjectCard key={project.title} project={project} featured />
+          ))}
+        </div>
+        <div className="projects-other">
+          {OTHER_PROJECTS.map((project) => (
             <ProjectCard key={project.title} project={project} />
           ))}
         </div>
