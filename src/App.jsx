@@ -64,7 +64,16 @@ const OTHER_PROJECTS = [
     tech: ["React", "Node.js", "Express", "MongoDB"],
     github: "https://github.com/CadenceElaina/vireofi",
     live: null,
-    images: [],
+    images: [
+      "/vireo1.png",
+      "/vireofi4.png",
+      "/old-vireofi1.png",
+      "/old-vireofi2.png",
+      "/old-vireofi3.png",
+      "/old-vireo1.png",
+      "/old-vireo2.png",
+      "/old-vireo3.png",
+    ],
     video: null,
   },
 ];
