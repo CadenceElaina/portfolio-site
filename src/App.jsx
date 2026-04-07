@@ -11,8 +11,13 @@ const NAV_LINKS = [
 const FEATURED_PROJECTS = [
   {
     title: "Finch",
-    description:
-      "Google Finance-inspired market intelligence dashboard with live stock data, watchlists, and portfolio tracking. 4-tier API fallback chain with circuit breakers, request deduplication, and per-provider rate limiting. Multi-layer caching pipeline: Vercel cron pre-warms Redis at market open, Edge caching with stale-while-revalidate, React Query per-symbol hydration, and localStorage TTL fallback deliver sub-100ms initial loads. Integrated Gemini AI with Google Search grounding for contextual market summaries and multi-turn research chat. Deployed with CI/CD via GitHub Actions.",
+    summary:
+      "Market intelligence dashboard with real-time stock data and AI-powered research.",
+    bullets: [
+      "~100ms TTFB via Vercel Cron + Redis pre-warming, edge caching with stale-while-revalidate, and React Query per-symbol hydration",
+      "4-provider API cascade with independent circuit breakers and request deduplication via shared in-flight Promises",
+      "Gemini 2.5 Flash integration across 3 modes — Google Search\u2013grounded summaries, per-symbol analysis, and multi-turn research chat",
+    ],
     tech: [
       "React",
       "TypeScript",
@@ -37,8 +42,13 @@ const FEATURED_PROJECTS = [
   },
   {
     title: "NeetCode SRS",
-    description:
-      "Free, open-source spaced repetition system for LeetCode interview prep built around the NeetCode 150. Uses a modified FSRS algorithm to schedule reviews based on retention probability. Features attempt logging, mock interview mode, pattern drills, NeetCode activity import, and an interview readiness score with tier ranking.",
+    summary:
+      "Open-source spaced repetition system for LeetCode interview prep built around the NeetCode 150.",
+    bullets: [
+      "Modified FSRS algorithm scheduling reviews based on retention probability with multi-signal stability updates",
+      "Interview readiness score (0\u2013100) compositing coverage, retention, category balance, and consistency into S\u2013D tiers",
+      "GitHub webhook sync auto-detects NeetCode submissions for one-click confirmation from dashboard",
+    ],
     tech: [
       "Next.js",
       "TypeScript",
@@ -65,8 +75,13 @@ const FEATURED_PROJECTS = [
 const OTHER_PROJECTS = [
   {
     title: "Journal",
-    description:
-      "Full-stack journaling app with JWT access/refresh token rotation, TOTP 2FA with hashed backup codes, account lockout after failed attempts, and cross-tab token sync via 3-tier fallback (Web Locks API → BroadcastChannel → localStorage) to prevent race conditions. 59 integration tests covering authorization enforcement, token invalidation, and pagination edge cases. Helmet.js headers, rate limiting, and input sanitization on all endpoints. Isolated demo system with auto-generated sessions, seeded data, and cron-based cleanup.",
+    summary:
+      "Full-stack journaling app with production-grade auth and 59 integration tests.",
+    bullets: [
+      "JWT access/refresh token rotation with cross-tab sync via 3-tier fallback (Web Locks API \u2192 BroadcastChannel \u2192 localStorage)",
+      "TOTP 2FA with hashed backup codes, account lockout, Helmet.js headers, rate limiting, and input sanitization on all endpoints",
+      "59 integration tests covering authorization enforcement, token invalidation, and pagination edge cases",
+    ],
     tech: [
       "React",
       "Node.js",
@@ -83,8 +98,13 @@ const OTHER_PROJECTS = [
   },
   {
     title: "VireoFi",
-    description:
-      "Self-hosted personal finance dashboard. Multi-stage import pipeline for CSV and PDF bank statements with format-specific parsers and a 4-tier cascading merchant matcher — raw-description → exact-description → name-inclusion → keyword-scoring — with per-rule amount-range and service-indicator conditions. Transaction fingerprinting for duplicate detection, budget tracking, net worth monitoring, cash flow analysis, and time-aware financial projections. 3-service Dockerized deployment (MongoDB, Express backend, Nginx reverse proxy).",
+    summary:
+      "Self-hosted personal finance dashboard with multi-stage bank statement import.",
+    bullets: [
+      "4-tier cascading merchant matcher \u2014 raw-description \u2192 exact-description \u2192 name-inclusion \u2192 keyword-scoring \u2014 with per-rule amount-range conditions",
+      "Transaction fingerprinting for duplicate detection across CSV and PDF imports with format-specific parsers",
+      "3-service Dockerized deployment (MongoDB, Express backend, Nginx reverse proxy)",
+    ],
     tech: ["React", "Node.js", "Express", "MongoDB", "Docker", "Chart.js"],
     github: "https://github.com/CadenceElaina/vireofi",
     live: null,
@@ -365,7 +385,12 @@ function ProjectCard({ project, featured }) {
             )}
           </div>
         </div>
-        <p className="project-description">{project.description}</p>
+        <p className="project-summary">{project.summary}</p>
+        <ul className="project-bullets">
+          {project.bullets.map((b) => (
+            <li key={b}>{b}</li>
+          ))}
+        </ul>
         <div className="project-tech">
           {project.tech.map((t) => (
             <span className="tech-tag" key={t}>

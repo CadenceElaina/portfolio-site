@@ -398,6 +398,8 @@
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .project-image {
@@ -532,11 +534,29 @@
   color: #ffffff;
 }
 
-.project-description {
+.project-summary {
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.project-bullets {
   color: var(--text-secondary);
   margin-bottom: 1.25rem;
-  line-height: 1.7;
-  font-size: 0.95rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.project-bullets li {
+  margin-bottom: 0.35rem;
+}
+
+.project-bullets li:last-child {
+  margin-bottom: 0;
 }
 
 .project-tech {
