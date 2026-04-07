@@ -12,11 +12,12 @@ const FEATURED_PROJECTS = [
   {
     title: "Finch",
     description:
-      "Google Finance-inspired market intelligence dashboard with live stock data, watchlists, and portfolio tracking. Features a 4-tier API fallback chain with circuit breakers and request deduplication. Integrated Gemini AI for contextual market summaries, multi-turn research chat, and portfolio commentary with a credit system and daily caching. Seamless demo mode auto-activates on rate limits. Deployed to Vercel with CI/CD via GitHub Actions (160+ commits).",
+      "Google Finance-inspired market intelligence dashboard with live stock data, watchlists, and portfolio tracking. 4-tier API fallback chain with circuit breakers, request deduplication, and per-provider rate limiting. Multi-layer caching pipeline: Vercel cron pre-warms Redis at market open, Edge caching with stale-while-revalidate, React Query per-symbol hydration, and localStorage TTL fallback deliver sub-100ms initial loads. Integrated Gemini AI with Google Search grounding for contextual market summaries and multi-turn research chat. Deployed with CI/CD via GitHub Actions.",
     tech: [
       "React",
       "TypeScript",
       "Vite",
+      "Node.js",
       "TanStack Query",
       "Gemini AI",
       "Redis",
@@ -37,7 +38,7 @@ const FEATURED_PROJECTS = [
   {
     title: "NeetCode SRS",
     description:
-      "Free, open-source spaced repetition system for LeetCode interview prep built around the NeetCode 150. Uses a modified FSRS algorithm to schedule reviews based on retention probability. Features attempt logging, mock interview mode, pattern drills, NeetCode activity import, and an interview readiness score with tier ranking. Actively maintained with community users and feedback.",
+      "Free, open-source spaced repetition system for LeetCode interview prep built around the NeetCode 150. Uses a modified FSRS algorithm to schedule reviews based on retention probability. Features attempt logging, mock interview mode, pattern drills, NeetCode activity import, and an interview readiness score with tier ranking.",
     tech: [
       "Next.js",
       "TypeScript",
@@ -65,7 +66,7 @@ const OTHER_PROJECTS = [
   {
     title: "Journal",
     description:
-      "Full-stack journaling app with production-grade auth (JWT access/refresh token rotation, TOTP 2FA with hashed backup codes, account lockout after failed attempts), cross-tab token synchronization via a 3-tier fallback (Web Locks API → BroadcastChannel → localStorage) to prevent race conditions during concurrent refresh. 59 integration tests covering authorization, token invalidation, and pagination edge cases. Isolated demo system with auto-generated sessions, seeded data, and cron-based cleanup. Built with React 19, Express v5, and MongoDB.",
+      "Full-stack journaling app with JWT access/refresh token rotation, TOTP 2FA with hashed backup codes, account lockout after failed attempts, and cross-tab token sync via 3-tier fallback (Web Locks API → BroadcastChannel → localStorage) to prevent race conditions. 59 integration tests covering authorization enforcement, token invalidation, and pagination edge cases. Helmet.js headers, rate limiting, and input sanitization on all endpoints. Isolated demo system with auto-generated sessions, seeded data, and cron-based cleanup.",
     tech: [
       "React",
       "Node.js",
@@ -83,7 +84,7 @@ const OTHER_PROJECTS = [
   {
     title: "VireoFi",
     description:
-      "Self-hosted personal finance dashboard. Multi-stage import pipeline for CSV and PDF bank statements with format-specific parsers, a 4-priority merchant matching engine with confidence scoring, transaction fingerprinting for duplicate detection, and time-aware financial projections. Budget tracking, net worth monitoring, cash flow analysis, and goal management. Dockerized deployment.",
+      "Self-hosted personal finance dashboard. Multi-stage import pipeline for CSV and PDF bank statements with format-specific parsers and a 4-tier cascading merchant matcher — raw-description → exact-description → name-inclusion → keyword-scoring — with per-rule amount-range and service-indicator conditions. Transaction fingerprinting for duplicate detection, budget tracking, net worth monitoring, cash flow analysis, and time-aware financial projections. 3-service Dockerized deployment (MongoDB, Express backend, Nginx reverse proxy).",
     tech: ["React", "Node.js", "Express", "MongoDB", "Docker", "Chart.js"],
     github: "https://github.com/CadenceElaina/vireofi",
     live: null,
@@ -112,19 +113,19 @@ const SKILLS = [
   },
   {
     category: "Backend",
-    items: ["Node.js", "Express", "Spring Boot", "REST APIs"],
+    items: ["Node.js", "Express", "REST APIs"],
   },
   {
     category: "Databases",
-    items: ["MongoDB", "PostgreSQL"],
+    items: ["MongoDB", "PostgreSQL", "Redis"],
   },
   {
     category: "Tools & Platforms",
-    items: ["Git", "GitHub", "Docker", "Postman", "Linux/Unix", "Vercel"],
+    items: ["Git", "Docker", "Linux/Unix", "Vercel"],
   },
   {
     category: "Testing",
-    items: ["Jest", "Supertest", "Integration Testing"],
+    items: ["Jest", "Supertest"],
   },
 ];
 
@@ -160,7 +161,7 @@ function Nav() {
             </a>
           ))}
           <a
-            href="/swe-resume.pdf"
+            href="/swe_resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-resume-btn"
@@ -190,7 +191,7 @@ function Hero() {
             <a href="#projects" className="btn btn-primary">
               View my work ↓
             </a>
-            <a href="/swe-resume.pdf" download className="btn btn-secondary">
+            <a href="/swe_resume.pdf" download className="btn btn-secondary">
               Resume ↓
             </a>
           </div>
@@ -241,9 +242,8 @@ function About() {
               In February 2026 I resigned to return to UNCC full-time and finish
               my Computer Science degree. The transition started well before
               that — I completed the University of Helsinki's Java MOOC and Full
-              Stack Open, earned freeCodeCamp certifications, and built multiple
-              full-stack applications before ever setting foot back in a
-              classroom.
+              Stack Open and built multiple full-stack applications before ever
+              setting foot back in a classroom.
             </p>
             <p>
               I'm targeting backend and full-stack engineering roles, with a
@@ -265,9 +265,8 @@ function About() {
             <div className="detail-item">
               <p className="detail-label">Relevant Coursework</p>
               <p className="detail-value detail-value-sm">
-                Data Structures &amp; Algorithms · Discrete Mathematics ·
-                Calculus II · Intro to Computer Systems · Statistics for
-                Computer Science
+                Data Structures &amp; Algorithms · Logic &amp; Algorithms ·
+                Database Design &amp; Implementation · Calculus I–II
               </p>
             </div>
           </div>
