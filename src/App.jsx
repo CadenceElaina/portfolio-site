@@ -1,5 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
+
+function useFadeIn() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("is-visible");
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
@@ -41,34 +61,32 @@ const FEATURED_PROJECTS = [
     video: "https://youtu.be/17KT8b5eZ8M",
   },
   {
-    title: "NeetCode SRS",
+    title: "Aurora",
     summary:
-      "Open-source spaced repetition system for LeetCode interview prep built around the NeetCode 150.",
+      "Spaced repetition system for LeetCode interview prep — like Anki, but calibrated for coding problems.",
     bullets: [
-      "Modified FSRS algorithm scheduling reviews based on retention probability with multi-signal stability updates",
-      "Interview readiness score (0\u2013100) compositing coverage, retention, category balance, and consistency into S\u2013D tiers",
-      "GitHub webhook sync auto-detects NeetCode submissions for one-click confirmation from dashboard",
+      "Modified FSRS algorithm with custom stability updates — outcome multipliers and retrievability-decay modifiers calibrated to coding problem retention patterns",
+      "0\u2013100 composite readiness score weighting coverage (30%), retention (40%), category balance (20%), and consistency (10%) to project interview-day capacity via day-by-day simulation",
+      "Open-sourced and shared with developer communities; iterated on GitHub webhook sync for automated submission tracking and mock interview mode based on community feedback",
     ],
     tech: [
       "Next.js",
       "TypeScript",
       "PostgreSQL",
-      "Drizzle",
       "Supabase",
+      "Drizzle",
       "Tailwind CSS",
     ],
-    github:
-      "https://github.com/CadenceElaina/neetcode-spaced-repetition-system",
-    live: "https://leetcode-spaced-repetition-system.vercel.app/dashboard",
+    github: "https://github.com/CadenceElaina/aurora",
+    live: "https://aurora-ascent.vercel.app/",
     images: [
-      "/neetcodesrs1.png",
-      "/srs2.png",
-      "/srs3.png",
-      "/srs4.png",
-      "/srs5.png",
-      "/srs6.png",
+      "/aurora.png",
+      "/aurora1.png",
+      "/aurora2.png",
+      "/aurora3.png",
+      "/auror4.png",
     ],
-    video: null,
+    video: "https://youtu.be/lsM-h6kZLMI",
   },
 ];
 
@@ -243,8 +261,9 @@ function Hero() {
 }
 
 function About() {
+  const fadeRef = useFadeIn();
   return (
-    <section className="section" id="about">
+    <section className="section fade-in-section" id="about" ref={fadeRef}>
       <div className="container">
         <div className="section-header">
           <p className="section-label">About</p>
@@ -404,8 +423,9 @@ function ProjectCard({ project, featured }) {
 }
 
 function Projects() {
+  const fadeRef = useFadeIn();
   return (
-    <section className="section" id="projects">
+    <section className="section fade-in-section" id="projects" ref={fadeRef}>
       <div className="container">
         <div className="section-header">
           <p className="section-label">Projects</p>
@@ -427,8 +447,9 @@ function Projects() {
 }
 
 function Skills() {
+  const fadeRef = useFadeIn();
   return (
-    <section className="section" id="skills">
+    <section className="section fade-in-section" id="skills" ref={fadeRef}>
       <div className="container">
         <div className="section-header">
           <p className="section-label">Skills</p>
@@ -454,8 +475,9 @@ function Skills() {
 }
 
 function Contact() {
+  const fadeRef = useFadeIn();
   return (
-    <section className="section contact" id="contact">
+    <section className="section contact fade-in-section" id="contact" ref={fadeRef}>
       <div className="container">
         <div className="contact-content">
           <p className="section-label">Contact</p>

@@ -1,17 +1,17 @@
 /* ===== CSS Custom Properties ===== */
 :root {
-  /* Colors — warm neutral palette with a single accent */
-  --bg-primary: #fafaf9;
-  --bg-secondary: #f5f5f4;
+  /* Colors — sky-inspired palette with dusty rose accent */
+  --bg-primary: #faf9fa;
+  --bg-secondary: #f5f2f3;
   --bg-card: #ffffff;
-  --text-primary: #1c1917;
-  --text-secondary: #57534e;
-  --text-muted: #a8a29e;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-subtle: #dbeafe;
-  --border: #e7e5e4;
-  --border-hover: #d6d3d1;
+  --text-primary: #1f1a1c;
+  --text-secondary: #524850;
+  --text-muted: #9a8f96;
+  --accent: #c4727f;
+  --accent-hover: #ad5e6a;
+  --accent-subtle: #f6e8eb;
+  --border: #e8e0e3;
+  --border-hover: #dbd1d5;
 
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
