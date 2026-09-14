@@ -36,19 +36,6 @@ export const ABOUT = [
   "In early 2026 I returned to UNCC full-time to finish my degree. The switch started earlier: I'd already completed the University of Helsinki's Java MOOC and Full Stack Open and built multiple full-stack apps.",
 ];
 
-export const EDUCATION = {
-  degree: "B.S. Computer Science",
-  school: "UNC Charlotte",
-  concentration: "Data Science",
-  graduating: "Spring 2027",
-  coursework: [
-    "Data Structures & Algorithms",
-    "Logic & Algorithms",
-    "Database Design & Implementation",
-    "Calculus I–II",
-  ],
-};
-
 // Research copy is the LinkedIn bio verbatim (em dash swapped for commas).
 // Only `title` and the thread titles are added labels.
 // Coursework with course codes (from the unofficial transcript). `current` is the

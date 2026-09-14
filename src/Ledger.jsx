@@ -11,7 +11,7 @@ import {
   PROJECTS,
   SKILLS,
   CONTACT_BLURB,
-} from "../content";
+} from "./content";
 import {
   useActiveSection,
   useScrolled,
@@ -20,10 +20,10 @@ import {
   usePersistentState,
   REDUCED_MOTION,
   pad,
-} from "../hooks";
-import Carousel from "../components/Carousel";
-import StackDiagram from "../components/StackDiagram";
-import WaveField from "../components/WaveField";
+} from "./hooks";
+import Carousel from "./components/Carousel";
+import StackDiagram from "./components/StackDiagram";
+import WaveField from "./components/WaveField";
 import "./ledger.css";
 
 // Background palettes: page ground plus wave colours (primary first, then accents).
