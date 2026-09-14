@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { mixHex, rgba } from "./color";
 
 // Animated page background on one fixed canvas.
 // Thin and thick bars drift across the screen in the current palette's colours.
@@ -7,17 +8,13 @@ import { useEffect, useRef } from "react";
 // background hands over to the next palette, then the cycle repeats.
 // `angle` rotates everything (0 = horizontal, negative = rising diagonal).
 // Palettes: [{ bg, bars: [primary, ...accents], alpha, capAlpha }].
+// `onGround(hex)` reports the approximate ground colour so the nav can match it.
 
 const HOLD = 12000;
 const SWEEP = 9000;
 
 const rand = (a, b) => a + Math.random() * (b - a);
 const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
-
-const rgba = (hex, a) => {
-  const n = parseInt(hex.slice(1), 16);
-  return `rgba(${n >> 16}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
-};
 
 // Bar that fades in from its tail, so it reads as a soft streak rather than a block.
 function streak(ctx, color, x, y, len, h) {
@@ -29,7 +26,7 @@ function streak(ctx, color, x, y, len, h) {
   ctx.fillRect(x, y, len, h);
 }
 
-export default function BarField({ palettes, angle = 0, paused = false }) {
+export default function BarField({ palettes, angle = 0, paused = false, onGround }) {
   const canvasRef = useRef(null);
   const pausedRef = useRef(paused);
   const api = useRef(null);
@@ -49,6 +46,7 @@ export default function BarField({ palettes, angle = 0, paused = false }) {
     let phaseStart = 0;
     let last = 0;
     let frame = 0;
+    let lastGround = "";
 
     const spawn = (anywhere) => {
       const thick = Math.random() < 0.12;
@@ -97,7 +95,15 @@ export default function BarField({ palettes, angle = 0, paused = false }) {
       const to = palettes[(cur + 1) % palettes.length];
       const sweeping = t > HOLD;
       // Front travels far enough that the most-lagged lane and its cap clear the frame.
-      const front = sweeping ? ease((t - HOLD) / SWEEP) * (FW * 1.35 + 240) : -Infinity;
+      const progress = sweeping ? ease((t - HOLD) / SWEEP) : 0;
+      const front = sweeping ? progress * (FW * 1.35 + 240) : -Infinity;
+
+      // Quantised so the nav's colour only updates a few dozen times per sweep.
+      const ground = mixHex(from.bg, to.bg, Math.round(progress * 32) / 32);
+      if (ground !== lastGround) {
+        lastGround = ground;
+        onGround?.(ground);
+      }
 
       ctx.save();
       ctx.globalAlpha = 1;
@@ -160,7 +166,7 @@ export default function BarField({ palettes, angle = 0, paused = false }) {
       stop();
       window.removeEventListener("resize", onResize);
     };
-  }, [palettes, angle]);
+  }, [palettes, angle, onGround]);
 
   useEffect(() => {
     pausedRef.current = paused;

@@ -24,6 +24,7 @@ import {
 import Carousel from "../components/Carousel";
 import StackDiagram from "../components/StackDiagram";
 import BarField from "../components/BarField";
+import WaveField from "../components/WaveField";
 import "./ledger.css";
 
 // Background palettes: page ground plus bar colours (primary first, then accents).
@@ -406,15 +407,61 @@ function Skills() {
   );
 }
 
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // The Clipboard API needs a secure context; fall back to a temporary selection.
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    const ok = document.execCommand("copy");
+    area.remove();
+    return ok;
+  }
+}
+
+const COPY_HINT = { idle: "Click to copy", copied: "Copied ✓", failed: "Couldn't copy, select it instead" };
+
+// The address itself copies on click; opening a mail app is a separate button.
+function EmailCopy() {
+  const [status, setStatus] = useState("idle");
+
+  useEffect(() => {
+    if (status === "idle") return;
+    const timer = setTimeout(() => setStatus("idle"), 2000);
+    return () => clearTimeout(timer);
+  }, [status]);
+
+  return (
+    <button
+      type="button"
+      className={`lg-contact-email${status === "copied" ? " is-copied" : ""}`}
+      onClick={async () => setStatus((await copyText(PROFILE.email)) ? "copied" : "failed")}
+    >
+      <span className="lg-contact-email-text">{PROFILE.email}</span>
+      <span className="lg-copy-hint" aria-live="polite">
+        {COPY_HINT[status]}
+      </span>
+    </button>
+  );
+}
+
 function Contact() {
   return (
     <Section id="contact" index={4} title="Let's talk">
       <div className="lg-indent">
         <p className="lg-contact-blurb">{CONTACT_BLURB}</p>
-        <a className="lg-contact-email" href={`mailto:${PROFILE.email}`}>
-          {PROFILE.email}
-        </a>
+        <EmailCopy />
         <div className="lg-actions">
+          <a className="lg-btn lg-btn-primary" href={`mailto:${PROFILE.email}`}>
+            Open in email app ↗
+          </a>
           <a className="lg-btn" href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer">
             LinkedIn ↗
           </a>
@@ -427,14 +474,29 @@ function Contact() {
   );
 }
 
-export default function Ledger() {
+// The nav reads --lg-ground so its translucent bar matches the animated background.
+const setGround = (hex) => document.documentElement.style.setProperty("--lg-ground", hex);
+
+// background: "bars" (default) or "wave" (see LedgerWave.jsx).
+export default function Ledger({ background = "bars" }) {
   const [theme, setTheme] = usePersistentState("lg-theme", systemTheme);
   const [motion, setMotion] = usePersistentState("lg-motion", !REDUCED_MOTION);
   const palettes = theme === "dark" ? DARK_PALETTES : LIGHT_PALETTES;
   useBodyBackground(palettes[0].bg);
+  useEffect(() => {
+    setGround(palettes[0].bg);
+  }, [palettes, motion]);
+
+  let field = null;
+  if (motion && background === "wave") {
+    field = <WaveField palettes={palettes} additive={theme === "dark"} onGround={setGround} />;
+  } else if (motion) {
+    field = <BarField palettes={palettes} angle={BAR_ANGLE} onGround={setGround} />;
+  }
+
   return (
     <div className="lg" data-theme={theme}>
-      {motion && <BarField palettes={palettes} angle={BAR_ANGLE} />}
+      {field}
       <Nav theme={theme} setTheme={setTheme} motion={motion} setMotion={setMotion} />
       <main>
         <Hero />

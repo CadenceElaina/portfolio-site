@@ -16,7 +16,8 @@
   --sans: "IBM Plex Sans", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --nav-h: 4.25rem;
-  --nav-bg: rgba(245, 241, 232, 0.86);
+  /* --lg-ground is set on :root by the animated background (see Ledger.jsx). */
+  --nav-bg: color-mix(in srgb, var(--lg-ground, #f5f1e8) 86%, transparent);
   --on-green: #fff;
   --frame: var(--ink);
   --car-btn: rgba(251, 249, 243, 0.94);
@@ -42,7 +43,7 @@
   --green: #6cc39a;
   --green-2: #8fd4b2;
   --green-soft: #1f3a2e;
-  --nav-bg: rgba(13, 17, 15, 0.78);
+  --nav-bg: color-mix(in srgb, var(--lg-ground, #0f1714) 80%, transparent);
   --on-green: #0d1411;
   --frame: #46514b;
   --car-btn: rgba(22, 29, 25, 0.92);
@@ -759,16 +760,48 @@
   margin-bottom: 1.5rem;
 }
 
+/* The address is a copy button; the hint underneath confirms the copy. */
 .lg-contact-email {
-  display: inline-block;
+  display: inline-grid;
+  justify-items: start;
+  gap: 0.55rem;
+  max-width: 100%;
+  margin-bottom: 2rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: copy;
+}
+
+.lg-contact-email-text {
   font-family: var(--serif);
   font-size: clamp(1.4rem, 4vw, 2.6rem);
   border-bottom: 2px solid var(--green);
-  margin-bottom: 2rem;
   word-break: break-word;
+  transition: color 150ms ease;
 }
 
-.lg .lg-contact-email:hover {
+.lg-contact-email:hover .lg-contact-email-text {
+  color: var(--green);
+}
+
+.lg-contact-email:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 4px;
+}
+
+.lg-copy-hint {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lg-contact-email.is-copied .lg-copy-hint {
   color: var(--green);
 }
 
