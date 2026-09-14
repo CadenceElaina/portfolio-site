@@ -2,15 +2,19 @@ import { useState } from "react";
 import {
   NAV_LINKS,
   SECTION_IDS,
+  PROJECT_ANCHORS,
   PROFILE,
   HIGHLIGHTS,
   ABOUT,
   EDUCATION,
+  RESEARCH,
   PROJECTS,
   SKILLS,
   CONTACT_BLURB,
 } from "../content";
 import { useActiveSection, useScrolled, useReveal, useBodyBackground, pad } from "../hooks";
+import Carousel from "../components/Carousel";
+import StackDiagram from "../components/StackDiagram";
 import "./ledger.css";
 
 function Nav() {
@@ -41,7 +45,7 @@ function Nav() {
               aria-current={active === l.id ? "location" : undefined}
               onClick={() => setOpen(false)}
             >
-              <span className="lg-links-num">{pad(i + 1)}</span>
+              <span className="lg-links-num">{pad(i)}</span>
               {l.label}
             </a>
           ))}
@@ -59,9 +63,9 @@ function Hero() {
     <section className="lg-hero" id="top">
       <div className="lg-container lg-hero-grid">
         <div>
-          <p className="lg-eyebrow">{PROFILE.role} · Full-stack</p>
+          <p className="lg-eyebrow">{PROFILE.role}</p>
           <h1 className="lg-hero-title">Cadence Anderson</h1>
-          <p className="lg-hero-lede">{PROFILE.intro}</p>
+          <p className="lg-hero-lede">{PROFILE.tagline}</p>
           <div className="lg-actions">
             <a className="lg-btn lg-btn-primary" href="#projects">
               Selected work
@@ -84,13 +88,14 @@ function Hero() {
   );
 }
 
-function Section({ id, num, label, title, children, className = "" }) {
+function Section({ id, index, title, children, className = "" }) {
   const ref = useReveal();
+  const label = NAV_LINKS.find((l) => l.id === id).label;
   return (
     <section id={id} ref={ref} className={`lg-section lg-reveal ${className}`}>
       <div className="lg-container">
         <div className="lg-section-head">
-          <span className="lg-section-num">{num}</span>
+          <span className="lg-section-num">{pad(index)}</span>
           <div>
             <p className="lg-eyebrow">{label}</p>
             <h2>{title}</h2>
@@ -104,37 +109,45 @@ function Section({ id, num, label, title, children, className = "" }) {
 
 function About() {
   return (
-    <Section id="about" num="01" label="About" title="Six years in finance, now building software">
-      <div className="lg-about">
+    <Section id="about" index={0} title="Background">
+      <div className="lg-about lg-indent">
         <div className="lg-prose">
           {ABOUT.map((p) => (
             <p key={p.slice(0, 24)}>{p}</p>
           ))}
         </div>
-        <dl className="lg-ledger lg-ledger-tight">
-          <div>
-            <dt>Degree</dt>
-            <dd>
-              {EDUCATION.degree}, {EDUCATION.school}
-            </dd>
-          </div>
-          <div>
-            <dt>Graduation</dt>
-            <dd>{EDUCATION.expected}</dd>
-          </div>
-          <div>
-            <dt>GPA</dt>
-            <dd className="lg-num">{EDUCATION.gpa}</dd>
-          </div>
-          <div>
-            <dt>Concentration</dt>
-            <dd>{EDUCATION.concentration}</dd>
-          </div>
-          <div>
-            <dt>Coursework</dt>
-            <dd>{EDUCATION.coursework.join(", ")}</dd>
-          </div>
-        </dl>
+        <div>
+          <p className="lg-eyebrow">Relevant coursework</p>
+          <ul className="lg-rows">
+            {EDUCATION.coursework.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function Research() {
+  return (
+    <Section id="research" index={1} title={RESEARCH.title}>
+      <div className="lg-indent">
+        <p className="lg-eyebrow lg-status">
+          <span className="lg-dot" aria-hidden="true" />
+          {RESEARCH.status}
+        </p>
+        <p className="lg-research-lead">{RESEARCH.lead}</p>
+        <ol className="lg-threads">
+          {RESEARCH.threads.map((t, i) => (
+            <li key={t.title}>
+              <span className="lg-thread-num">R.{pad(i)}</span>
+              <h3>{t.title}</h3>
+              <p>{t.body}</p>
+            </li>
+          ))}
+        </ol>
+        <blockquote className="lg-principle">{RESEARCH.principle}</blockquote>
       </div>
     </Section>
   );
@@ -161,45 +174,20 @@ function ProjectLinks({ project }) {
 }
 
 function CaseStudy({ project, index }) {
-  const [img, setImg] = useState(0);
-  const { images } = project;
-
   return (
     <article className="lg-case" id={`project-${project.id}`}>
       <header className="lg-case-head">
-        <span className="lg-case-num">P.{pad(index + 1)}</span>
-        <div className="lg-case-titles">
-          <p className="lg-eyebrow">{project.category}</p>
+        <div>
+          <p className="lg-eyebrow">
+            <span className="lg-case-num">P.{pad(index)}</span> · {project.category}
+          </p>
           <h3>{project.title}</h3>
           <p className="lg-case-summary">{project.summary}</p>
         </div>
         <ProjectLinks project={project} />
       </header>
 
-      <figure className="lg-shot">
-        <div className="lg-shot-frame">
-          <img
-            src={images[img]}
-            alt={`${project.title} screenshot ${img + 1} of ${images.length}`}
-            loading="lazy"
-          />
-        </div>
-        {images.length > 1 && (
-          <div className="lg-thumbs" role="group" aria-label={`${project.title} screenshots`}>
-            {images.map((src, i) => (
-              <button
-                key={src}
-                className={i === img ? "is-active" : undefined}
-                aria-pressed={i === img}
-                aria-label={`Show screenshot ${i + 1}`}
-                onClick={() => setImg(i)}
-              >
-                <img src={src} alt="" loading="lazy" />
-              </button>
-            ))}
-          </div>
-        )}
-      </figure>
+      <Carousel images={project.images} title={project.title} thumbs className="lg-car" />
 
       <div className="lg-case-body">
         <dl className="lg-figures">
@@ -218,7 +206,7 @@ function CaseStudy({ project, index }) {
             ))}
           </ul>
           <p className="lg-eyebrow">Stack</p>
-          <p className="lg-stack">{project.tech.join(" / ")}</p>
+          <StackDiagram stack={project.stack} tested={project.tested} className="lg-stk" />
         </div>
       </div>
     </article>
@@ -226,31 +214,45 @@ function CaseStudy({ project, index }) {
 }
 
 function Projects() {
+  const active = useActiveSection(PROJECT_ANCHORS, 0.4) ?? PROJECT_ANCHORS[0];
   return (
-    <Section id="projects" num="02" label="Projects" title="Selected work">
-      <ol className="lg-index">
-        {PROJECTS.map((p, i) => (
-          <li key={p.id}>
-            <a href={`#project-${p.id}`}>
-              <span className="lg-index-num">P.{pad(i + 1)}</span>
-              <span className="lg-index-title">{p.title}</span>
-              <span className="lg-index-summary">{p.summary}</span>
-              <span className="lg-index-cat">{p.category}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-      {PROJECTS.map((p, i) => (
-        <CaseStudy key={p.id} project={p} index={i} />
-      ))}
+    <Section id="projects" index={2} title="Selected work">
+      <div className="lg-projects">
+        <nav className="lg-proj-index" aria-label="Projects">
+          <p className="lg-eyebrow">Index</p>
+          <ol>
+            {PROJECTS.map((p, i) => {
+              const anchor = PROJECT_ANCHORS[i];
+              return (
+                <li key={p.id}>
+                  <a
+                    href={`#${anchor}`}
+                    className={active === anchor ? "is-active" : undefined}
+                    aria-current={active === anchor ? "location" : undefined}
+                  >
+                    <span className="lg-proj-num">P.{pad(i)}</span>
+                    <span className="lg-proj-title">{p.title}</span>
+                    <span className="lg-proj-cat">{p.category}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+        <div className="lg-cases">
+          {PROJECTS.map((p, i) => (
+            <CaseStudy key={p.id} project={p} index={i} />
+          ))}
+        </div>
+      </div>
     </Section>
   );
 }
 
 function Skills() {
   return (
-    <Section id="skills" num="03" label="Skills" title="Tools I work with">
-      <dl className="lg-skills">
+    <Section id="skills" index={3} title="Tools I work with">
+      <dl className="lg-skills lg-indent">
         {SKILLS.map((g) => (
           <div key={g.category}>
             <dt>{g.category}</dt>
@@ -264,18 +266,20 @@ function Skills() {
 
 function Contact() {
   return (
-    <Section id="contact" num="04" label="Contact" title="Let's talk" className="lg-contact">
-      <p className="lg-contact-blurb">{CONTACT_BLURB}</p>
-      <a className="lg-contact-email" href={`mailto:${PROFILE.email}`}>
-        {PROFILE.email}
-      </a>
-      <div className="lg-actions">
-        <a className="lg-btn" href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer">
-          LinkedIn ↗
+    <Section id="contact" index={4} title="Let's talk">
+      <div className="lg-indent">
+        <p className="lg-contact-blurb">{CONTACT_BLURB}</p>
+        <a className="lg-contact-email" href={`mailto:${PROFILE.email}`}>
+          {PROFILE.email}
         </a>
-        <a className="lg-btn" href={PROFILE.github} target="_blank" rel="noopener noreferrer">
-          GitHub ↗
-        </a>
+        <div className="lg-actions">
+          <a className="lg-btn" href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn ↗
+          </a>
+          <a className="lg-btn" href={PROFILE.github} target="_blank" rel="noopener noreferrer">
+            GitHub ↗
+          </a>
+        </div>
       </div>
     </Section>
   );
@@ -289,6 +293,7 @@ export default function Ledger() {
       <main>
         <Hero />
         <About />
+        <Research />
         <Projects />
         <Skills />
         <Contact />

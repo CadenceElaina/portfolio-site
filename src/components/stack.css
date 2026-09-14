@@ -1,0 +1,75 @@
+.stk {
+  --stk-bg: #fff;
+  --stk-border: #d9d9d9;
+  --stk-depth: #cfcfcf;
+  --stk-label: #777;
+  --stk-item-bg: #f1f1f1;
+  --stk-item-fg: #222;
+  --stk-radius: 8px;
+  --stk-step: 14px;
+  --stk-label-font: ui-monospace, monospace;
+}
+
+.stk-layers {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Top layer is narrowest; each layer below widens by --stk-step per side. */
+.stk-layer {
+  display: grid;
+  grid-template-columns: 5.25rem 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin-inline: calc((var(--n) - 1 - var(--i)) * var(--stk-step));
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--stk-border);
+  border-radius: var(--stk-radius);
+  background: var(--stk-bg);
+  box-shadow: 0 4px 0 var(--stk-depth);
+}
+
+.stk-label {
+  font-family: var(--stk-label-font);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stk-label);
+}
+
+.stk-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.stk-item {
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.18rem 0.5rem;
+  border-radius: 5px;
+  background: var(--stk-item-bg);
+  color: var(--stk-item-fg);
+}
+
+.stk-foot {
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  color: var(--stk-label);
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .stk {
+    --stk-step: 5px;
+  }
+
+  .stk-layer {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}

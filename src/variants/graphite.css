@@ -1,0 +1,727 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap");
+
+/* Variant: Graphite. Dark, amber accent, full-width top nav, projects fit one screen each. */
+.gr {
+  --bg: #0e1013;
+  --surface: #151820;
+  --surface-2: #1c2029;
+  --line: #2a303b;
+  --text: #eceef2;
+  --text-2: #b5bbc7;
+  --muted: #7f8697;
+  --accent: #f5b544;
+  --accent-2: #ffc867;
+  --accent-soft: rgba(245, 181, 68, 0.12);
+  --green: #4ade80;
+  --display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --sans: "Inter", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --nav-h: 4rem;
+
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  color-scheme: dark;
+}
+
+.gr a,
+.gr a:hover {
+  color: inherit;
+}
+
+.gr h1,
+.gr h2,
+.gr h3 {
+  font-family: var(--display);
+  letter-spacing: -0.02em;
+}
+
+.gr ::selection {
+  background: var(--accent);
+  color: #111;
+}
+
+.gr-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+}
+
+/* ---------- Nav ---------- */
+.gr-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(14, 16, 19, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+
+.gr-nav.is-scrolled {
+  border-bottom-color: var(--line);
+}
+
+.gr-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: var(--nav-h);
+}
+
+.gr-wordmark {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.gr-wordmark span {
+  color: var(--accent);
+}
+
+.gr-links {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+.gr-links a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 7px;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.gr-links a span {
+  font-size: 0.68rem;
+  opacity: 0.7;
+}
+
+.gr-links a:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.gr-links a.is-active {
+  color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+.gr-nav-resume {
+  padding: 0.45rem 0.9rem;
+}
+
+/* ---------- Buttons / chips / cards ---------- */
+.gr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.gr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1.05rem;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: 500 0.86rem var(--sans);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.gr .gr-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.gr .gr-btn-accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #15120a;
+  font-weight: 600;
+}
+
+.gr .gr-btn-accent:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: #15120a;
+}
+
+.gr-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+}
+
+.gr-chips li {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--text-2);
+}
+
+.gr-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.35rem;
+}
+
+.gr-card-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.gr-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.18);
+}
+
+/* ---------- Hero ---------- */
+.gr-hero {
+  padding-block: clamp(4rem, 12vh, 7rem) clamp(3.5rem, 8vh, 5rem);
+}
+
+.gr-hero-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.gr-prompt {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  color: var(--text-2);
+  margin-bottom: 1.1rem;
+  word-break: break-word;
+}
+
+.gr-prompt span {
+  color: var(--accent);
+  margin-right: 0.3rem;
+}
+
+.gr-hero h1 {
+  font-size: clamp(2.4rem, 5.2vw, 4.3rem);
+  line-height: 1.04;
+  margin-bottom: 1.25rem;
+}
+
+.gr-hero h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.gr-lede {
+  color: var(--text-2);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 44ch;
+  margin-bottom: 2rem;
+}
+
+.gr-window {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.gr-window-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.gr-window-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line);
+}
+
+.gr-window-bar p {
+  margin-left: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.gr-now {
+  padding: 1.1rem 1.25rem 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+}
+
+.gr-now > div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.75rem;
+  padding-block: 0.55rem;
+  border-bottom: 1px dashed var(--line);
+}
+
+.gr-now > div:last-child {
+  border-bottom: none;
+}
+
+.gr-now dt {
+  color: var(--accent);
+}
+
+.gr-now dd {
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ---------- Sections ---------- */
+.gr-section {
+  padding-block: clamp(3.5rem, 9vh, 5.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.gr-section h2 {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  margin-bottom: 2rem;
+}
+
+.gr-label {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.gr-label span {
+  color: var(--accent);
+}
+
+.gr-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+
+.gr-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- About ---------- */
+.gr-about {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.gr-prose p {
+  color: var(--text-2);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  max-width: 68ch;
+}
+
+/* ---------- Research ---------- */
+.gr-research-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-2);
+}
+
+.gr-research-lead {
+  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+  line-height: 1.6;
+  max-width: 62ch;
+  margin-bottom: 2rem;
+}
+
+.gr-threads {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.gr-threads h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.gr-threads p:not(.gr-card-label) {
+  color: var(--text-2);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.gr-principle {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  color: var(--text);
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 8px 8px 0;
+}
+
+.gr-principle span {
+  color: var(--accent);
+}
+
+/* ---------- Projects ---------- */
+.gr-projects {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.gr-proj-index {
+  position: sticky;
+  top: calc(var(--nav-h) + 1.25rem);
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.gr-proj-index ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.gr-proj-index a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.45rem 0.5rem;
+  border-radius: 7px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.gr-proj-index a:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.gr-proj-index a.is-active {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.gr-proj-caret {
+  width: 0.7rem;
+  white-space: pre;
+}
+
+.gr-proj-num {
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+
+.gr-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gr-project {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  scroll-margin-top: calc(var(--nav-h) + 1rem);
+}
+
+.gr-project-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.gr-project-head .gr-card-label {
+  margin-bottom: 0.2rem;
+}
+
+.gr-project-head h3 {
+  font-size: 1.75rem;
+  line-height: 1.1;
+}
+
+.gr-project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.gr-project-links .gr-btn {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.82rem;
+}
+
+.gr-project-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.gr-project-media {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.gr .gr-car {
+  --car-radius: 10px;
+  --car-border: var(--line);
+  --car-bg: #0a0c10;
+  --car-btn-bg: rgba(14, 16, 19, 0.85);
+  --car-btn-fg: var(--text);
+  --car-accent: var(--accent);
+}
+
+.gr-project-summary {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.gr-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.gr-metrics div {
+  padding: 0.7rem 0.8rem;
+  border-radius: 9px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+.gr-metrics strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+.gr-metrics span {
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1.35;
+  display: block;
+}
+
+.gr-bullets {
+  list-style: none;
+}
+
+.gr-bullets li {
+  position: relative;
+  padding-left: 1.3rem;
+  margin-bottom: 0.65rem;
+  color: var(--text-2);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.gr-bullets li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.gr .gr-stk {
+  --stk-bg: var(--surface-2);
+  --stk-border: var(--line);
+  --stk-depth: #0a0c10;
+  --stk-label: var(--accent);
+  --stk-item-bg: #232833;
+  --stk-item-fg: var(--text);
+  --stk-radius: 7px;
+  --stk-step: 12px;
+  --stk-label-font: var(--mono);
+}
+
+/* ---------- Skills ---------- */
+.gr-skills {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.gr .gr-stk-lg {
+  --stk-step: 22px;
+}
+
+.gr .gr-stk-lg .stk-layer {
+  padding: 0.8rem 1rem;
+}
+
+.gr .gr-stk-lg .stk-item {
+  font-size: 0.85rem;
+}
+
+.gr-skills-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ---------- Contact ---------- */
+.gr-contact {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--surface), var(--surface-2));
+}
+
+.gr-contact-blurb {
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 58ch;
+}
+
+.gr-contact-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.gr-footer {
+  padding-block: 2rem 5rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .gr-project-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .gr-nav-inner {
+    gap: 0.75rem;
+  }
+
+  .gr-wordmark,
+  .gr-nav-resume {
+    display: none;
+  }
+
+  .gr-links {
+    margin-left: 0;
+    overflow-x: auto;
+  }
+
+  .gr-hero-grid,
+  .gr-about,
+  .gr-threads,
+  .gr-skills,
+  .gr-contact {
+    grid-template-columns: 1fr;
+  }
+
+  /* Project index becomes a sticky horizontal strip under the nav. */
+  .gr-projects {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .gr-proj-index {
+    top: var(--nav-h);
+    z-index: 10;
+    padding: 0.5rem;
+    border-radius: 10px;
+    background: rgba(21, 24, 32, 0.95);
+    backdrop-filter: blur(8px);
+  }
+
+  .gr-proj-index .gr-card-label,
+  .gr-proj-caret {
+    display: none;
+  }
+
+  .gr-proj-index ol {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .gr-now > div {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .gr-project {
+    padding: 0.85rem;
+  }
+
+  .gr-project-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gr-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .gr-contact-actions {
+    grid-template-columns: 1fr;
+  }
+}

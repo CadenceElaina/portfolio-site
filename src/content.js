@@ -3,6 +3,7 @@
 
 export const NAV_LINKS = [
   { id: "about", label: "About" },
+  { id: "research", label: "Research" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "contact", label: "Contact" },
@@ -12,35 +13,34 @@ export const SECTION_IDS = NAV_LINKS.map((l) => l.id);
 
 export const PROFILE = {
   name: "Cadence Anderson",
-  role: "Software Engineer",
+  role: "Software engineer · CS education research",
+  tagline:
+    "I build full-stack software and research how learning systems can find where students get stuck.",
+  seeking: "Seeking Summer 2027 internships and research roles",
   email: "cadence.anderson88@gmail.com",
   github: "https://github.com/CadenceElaina",
   linkedin: "https://www.linkedin.com/in/cadence-anderson-7a6a6737a/",
   resume: "/swe_resume.pdf",
-  intro:
-    "Software engineer and former financial professional with six years in the industry, from teller to financial advisor. I build full-stack web applications and I'm pursuing a B.S. in Computer Science (Data Science concentration) at UNC Charlotte.",
-  seeking: "Open to summer 2027 internships",
 };
 
 export const HIGHLIGHTS = [
-  { label: "Previously", value: "Financial Advisor, Wells Fargo" },
-  { label: "In finance", value: "6 years, teller to advisor" },
-  { label: "Studying", value: "B.S. Computer Science, UNC Charlotte" },
-  { label: "Seeking", value: "Summer 2027 internship" },
+  { label: "Research", value: "CS education and adaptive learning systems" },
+  { label: "Studying", value: "B.S. Computer Science (Data Science), UNC Charlotte, Spring 2027" },
+  { label: "Previously", value: "Six years in financial services, teller to financial advisor" },
+  { label: "Seeking", value: "Summer 2027 SWE internships and research positions" },
 ];
 
 export const ABOUT = [
-  "I spent six years in financial services at Wells Fargo, starting as a teller and working up to Financial Advisor. I managed client relationships, executed trades, and identified process improvements adopted by 200+ advisors nationally.",
-  "In February 2026 I resigned to return to UNCC full-time and finish my Computer Science degree. The transition started well before that. I completed the University of Helsinki's Java MOOC and Full Stack Open and built multiple full-stack applications before ever setting foot back in a classroom.",
-  "I'm targeting backend and full-stack engineering roles with a focus on fintech, where I can put six years of domain knowledge to work alongside my technical skills. I'm looking for a summer 2027 internship and full-time roles after graduation.",
+  "My current focuses are undergraduate research in CS education and adaptive learning systems, preparing for technical interviews, and applying my coursework to work I find meaningful.",
+  "Before this I spent six years in financial services, progressing from teller to financial advisor. I managed client relationships, executed trades, and drove process improvements adopted by 200+ advisors nationally.",
+  "In early 2026 I returned to UNCC full-time to finish my degree. The switch started earlier: I'd already completed the University of Helsinki's Java MOOC and Full Stack Open and built multiple full-stack apps.",
 ];
 
 export const EDUCATION = {
   degree: "B.S. Computer Science",
   school: "UNC Charlotte",
-  expected: "Expected Fall 2027",
-  gpa: "3.66",
   concentration: "Data Science",
+  graduating: "Spring 2027",
   coursework: [
     "Data Structures & Algorithms",
     "Logic & Algorithms",
@@ -49,14 +49,35 @@ export const EDUCATION = {
   ],
 };
 
+export const RESEARCH = {
+  status: "Undergraduate research · UNC Charlotte",
+  title: "Finding where students get stuck",
+  lead: "Problem decomposition is a foundational skill for programming. Knowing whether a student's gap is procedural (concepts, logic), declarative (syntax, facts), or both lets a learning system direct them to the right practice and explanation.",
+  threads: [
+    {
+      title: "Prerequisite models",
+      body: "Models that map the requirements of solving problems within a course, paired with labels on each problem for the procedural and declarative skills it takes to solve.",
+    },
+    {
+      title: "Knowledge tracing",
+      body: "Combined with that structure, knowledge tracing methods can potentially identify where a student's gaps are. Once gaps and misconceptions are named, feedback can actually target them.",
+    },
+    {
+      title: "LLM-assisted feedback",
+      body: "Instructors and TAs can't meet every student's needs at every moment. I'm interested in where LLMs fit that shortfall: identifying gaps, giving adequate feedback, and escalating to the right resource, iteratively enough to keep students engaged.",
+    },
+  ],
+  principle: "Engagement and resilience ahead of optimal strategy. Any practice is better than none.",
+};
+
+// `stack` is ordered top layer first (what the user touches) down to the foundation.
 export const PROJECTS = [
   {
     id: "finch",
     title: "Finch",
     featured: true,
     category: "Fintech · AI",
-    summary:
-      "Market intelligence dashboard with real-time stock data and AI-powered research.",
+    summary: "Market intelligence dashboard with real-time stock data and AI-powered research.",
     stats: [
       { value: "~100ms", label: "time to first byte" },
       { value: "4", label: "API providers with circuit breakers" },
@@ -67,7 +88,12 @@ export const PROJECTS = [
       "4-provider API cascade with independent circuit breakers and request deduplication via shared in-flight Promises",
       "Gemini 2.5 Flash integration across 3 modes: Google Search-grounded summaries, per-symbol analysis, and multi-turn research chat",
     ],
-    tech: ["React", "TypeScript", "Vite", "Node.js", "TanStack Query", "Gemini AI", "Redis", "Vercel"],
+    stack: [
+      { layer: "Client", items: ["React", "TypeScript", "Vite", "TanStack Query"] },
+      { layer: "Server", items: ["Node.js", "Gemini 2.5 Flash"] },
+      { layer: "Cache", items: ["Redis"] },
+      { layer: "Hosting", items: ["Vercel", "Vercel Cron"] },
+    ],
     github: "https://github.com/CadenceElaina/finch",
     live: "https://finch-jade.vercel.app/",
     video: "https://youtu.be/17KT8b5eZ8M",
@@ -79,18 +105,22 @@ export const PROJECTS = [
     featured: true,
     category: "Learning tool",
     summary:
-      "Spaced repetition system for LeetCode interview prep. Like Anki, but calibrated for coding problems.",
+      "Spaced repetition for LeetCode interview prep. Solve a problem, rate your recall, and Aurora schedules your next review.",
     stats: [
       { value: "FSRS", label: "modified scheduling algorithm" },
       { value: "4", label: "weighted readiness factors" },
-      { value: "OSS", label: "iterated on community feedback" },
+      { value: "18", label: "problem categories tracked" },
     ],
     bullets: [
       "Modified FSRS algorithm with custom stability updates: outcome multipliers and retrievability-decay modifiers calibrated to coding problem retention patterns",
       "0–100 composite readiness score weighting coverage (30%), retention (40%), category balance (20%), and consistency (10%) to project interview-day capacity via day-by-day simulation",
-      "Open-sourced and shared with developer communities; iterated on GitHub webhook sync for automated submission tracking and mock interview mode based on community feedback",
+      "Free and open source, with GitHub webhook sync for automatic submission tracking and a timed mock interview mode built from your weakest categories",
     ],
-    tech: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Drizzle", "Tailwind CSS"],
+    stack: [
+      { layer: "App", items: ["Next.js", "TypeScript", "Tailwind CSS"] },
+      { layer: "ORM", items: ["Drizzle"] },
+      { layer: "Database", items: ["PostgreSQL", "Supabase"] },
+    ],
     github: "https://github.com/CadenceElaina/aurora",
     live: "https://aurora-ascent.vercel.app/",
     video: "https://youtu.be/lsM-h6kZLMI",
@@ -101,8 +131,7 @@ export const PROJECTS = [
     title: "Journal",
     featured: false,
     category: "Security · Testing",
-    summary:
-      "Full-stack journaling app with production-grade auth and 59 integration tests.",
+    summary: "Full-stack journaling app with production-grade auth and 59 integration tests.",
     stats: [
       { value: "59", label: "integration tests" },
       { value: "TOTP", label: "2FA with hashed backup codes" },
@@ -113,7 +142,12 @@ export const PROJECTS = [
       "TOTP 2FA with hashed backup codes, account lockout, Helmet.js headers, rate limiting, and input sanitization on all endpoints",
       "59 integration tests covering authorization enforcement, token invalidation, and pagination edge cases",
     ],
-    tech: ["React", "Node.js", "Express", "MongoDB", "JWT", "Jest", "Supertest"],
+    stack: [
+      { layer: "Client", items: ["React"] },
+      { layer: "Server", items: ["Node.js", "Express", "JWT", "Helmet.js"] },
+      { layer: "Database", items: ["MongoDB"] },
+    ],
+    tested: ["Jest", "Supertest"],
     github: "https://github.com/CadenceElaina/journal",
     live: "https://journal-yje6.onrender.com/auth/login",
     video: "https://youtu.be/0oOCY7_ohQY",
@@ -124,8 +158,7 @@ export const PROJECTS = [
     title: "VireoFi",
     featured: false,
     category: "Personal finance",
-    summary:
-      "Self-hosted personal finance dashboard with multi-stage bank statement import.",
+    summary: "Self-hosted personal finance dashboard with multi-stage bank statement import.",
     stats: [
       { value: "4-tier", label: "merchant matcher" },
       { value: "CSV + PDF", label: "imports with duplicate detection" },
@@ -136,7 +169,13 @@ export const PROJECTS = [
       "Transaction fingerprinting for duplicate detection across CSV and PDF imports with format-specific parsers",
       "3-service Dockerized deployment (MongoDB, Express backend, Nginx reverse proxy)",
     ],
-    tech: ["React", "Node.js", "Express", "MongoDB", "Docker", "Chart.js"],
+    stack: [
+      { layer: "Client", items: ["React", "Chart.js"] },
+      { layer: "Proxy", items: ["Nginx"] },
+      { layer: "Server", items: ["Node.js", "Express"] },
+      { layer: "Database", items: ["MongoDB"] },
+      { layer: "Runtime", items: ["Docker"] },
+    ],
     github: "https://github.com/CadenceElaina/vireofi",
     live: null,
     video: null,
@@ -153,6 +192,8 @@ export const PROJECTS = [
   },
 ];
 
+export const PROJECT_ANCHORS = PROJECTS.map((p) => `project-${p.id}`);
+
 export const SKILLS = [
   { category: "Languages", items: ["JavaScript (ES6+)", "TypeScript", "Java", "Python", "SQL"] },
   { category: "Frontend", items: ["React", "Next.js", "Vite", "Tailwind CSS"] },
@@ -163,4 +204,4 @@ export const SKILLS = [
 ];
 
 export const CONTACT_BLURB =
-  "I'm actively looking for software engineering internships for summer 2027 and full-time roles after graduation. If you're working on something interesting, especially in fintech or data, I'd love to connect.";
+  "I'm seeking software engineering internships for Summer 2027 and research positions. If you're working on something interesting, especially in learning systems, CS education, or data, I'd love to connect.";

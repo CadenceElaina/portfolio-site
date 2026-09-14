@@ -82,4 +82,54 @@ export function useBodyBackground(color) {
   }, [color]);
 }
 
+const REDUCED_MOTION =
+  typeof window !== "undefined" &&
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+// Looping slideshow state. Auto-advances every `interval` ms while at least
+// half on screen and not hovered/focused; any manual step restarts the timer.
+export function useCarousel(count, interval = 5000) {
+  const [index, setIndex] = useState(0);
+  const [held, setHeld] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), {
+      threshold: 0.5,
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const running = count > 1 && visible && !held && !REDUCED_MOTION;
+
+  useEffect(() => {
+    if (!running) return;
+    const timer = setTimeout(() => setIndex((i) => (i + 1) % count), interval);
+    return () => clearTimeout(timer);
+  }, [running, index, count, interval]);
+
+  const go = (i) => setIndex(((i % count) + count) % count);
+
+  return {
+    ref,
+    index,
+    running,
+    go,
+    next: () => go(index + 1),
+    prev: () => go(index - 1),
+    holdHandlers: {
+      onMouseEnter: () => setHeld(true),
+      onMouseLeave: () => setHeld(false),
+      onFocus: () => setHeld(true),
+      onBlur: (e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setHeld(false);
+      },
+    },
+  };
+}
+
 export const pad = (n) => String(n).padStart(2, "0");
