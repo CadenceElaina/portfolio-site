@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   NAV_LINKS,
   SECTION_IDS,
@@ -6,18 +6,64 @@ import {
   PROFILE,
   HIGHLIGHTS,
   ABOUT,
-  EDUCATION,
+  COURSES,
   RESEARCH,
   PROJECTS,
   SKILLS,
   CONTACT_BLURB,
 } from "../content";
-import { useActiveSection, useScrolled, useReveal, useBodyBackground, pad } from "../hooks";
+import {
+  useActiveSection,
+  useScrolled,
+  useReveal,
+  useBodyBackground,
+  usePersistentState,
+  REDUCED_MOTION,
+  pad,
+} from "../hooks";
 import Carousel from "../components/Carousel";
 import StackDiagram from "../components/StackDiagram";
+import BarField from "../components/BarField";
 import "./ledger.css";
 
-function Nav() {
+// Background palettes: page ground plus bar colours (primary first, then accents).
+// Grounds within a theme share a similar lightness so text contrast holds all cycle.
+const LIGHT_PALETTES = [
+  { bg: "#f5f1e8", bars: ["#1d5b43", "#9cc3ad", "#d4a95a"], alpha: 0.13, capAlpha: 0.22 },
+  { bg: "#eef2ea", bars: ["#2f6d55", "#a9c7b8", "#e0a37c"], alpha: 0.13, capAlpha: 0.22 },
+  { bg: "#edf0f4", bars: ["#2d4f7c", "#aebfd6", "#e3b25d"], alpha: 0.13, capAlpha: 0.22 },
+  { bg: "#f6eeea", bars: ["#8a3b2e", "#e0b9ab", "#8fb3a0"], alpha: 0.13, capAlpha: 0.22 },
+];
+
+const DARK_PALETTES = [
+  { bg: "#0f1714", bars: ["#2e7d5b", "#1d5b43", "#c9a45c"], alpha: 0.2, capAlpha: 0.32 },
+  { bg: "#0f1420", bars: ["#3b64a0", "#23406e", "#d07a52"], alpha: 0.2, capAlpha: 0.32 },
+  { bg: "#17111c", bars: ["#7a4f8f", "#4a2b5e", "#d9a441"], alpha: 0.2, capAlpha: 0.32 },
+  { bg: "#1a1310", bars: ["#a3563a", "#6b3420", "#6fa08a"], alpha: 0.2, capAlpha: 0.32 },
+];
+
+// Prototype switch: ?v=ledger&bars=diagonal tilts the bars; default is horizontal.
+const BAR_ANGLE = new URLSearchParams(window.location.search).get("bars") === "diagonal" ? -24 : 0;
+
+const systemTheme = () =>
+  window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
+function Icon({ d }) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+      <path d={d} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+const ICONS = {
+  sun: "M12 4V2M12 22v-2M4 12H2M22 12h-2M6.3 6.3 4.9 4.9M19.1 19.1l-1.4-1.4M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z",
+  moon: "M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z",
+  pause: "M9 5v14M15 5v14",
+  play: "M8 5l11 7-11 7V5Z",
+};
+
+function Nav({ theme, setTheme, motion, setMotion }) {
   const active = useActiveSection(SECTION_IDS);
   const scrolled = useScrolled();
   const [open, setOpen] = useState(false);
@@ -53,6 +99,25 @@ function Nav() {
             Resume
           </a>
         </nav>
+        <div className="lg-tools">
+          <button
+            className="lg-tool"
+            onClick={() => setMotion(!motion)}
+            aria-label={motion ? "Turn off animations" : "Turn on animations"}
+            aria-pressed={motion}
+            title={motion ? "Turn off animations" : "Turn on animations"}
+          >
+            <Icon d={motion ? ICONS.pause : ICONS.play} />
+          </button>
+          <button
+            className="lg-tool"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            title={theme === "dark" ? "Light theme" : "Dark theme"}
+          >
+            <Icon d={theme === "dark" ? ICONS.sun : ICONS.moon} />
+          </button>
+        </div>
       </div>
     </header>
   );
@@ -107,7 +172,81 @@ function Section({ id, index, title, children, className = "" }) {
   );
 }
 
-function About() {
+const COURSE_PANELS = [
+  { label: "Relevant coursework", items: COURSES.completed },
+  { label: `Currently taking · ${COURSES.current.term}`, items: COURSES.current.items },
+];
+
+function CourseRows({ items, className = "" }) {
+  return (
+    <ul className={`lg-rows ${className}`}>
+      {items.map((c) => (
+        <li key={c.code}>
+          <span className="lg-course-code">{c.code}</span>
+          {c.title}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// Cross-fades between completed and current courses every 6s (held while hovered
+// or focused). With animations off, both lists show stacked.
+function Coursework({ animate }) {
+  const [shown, setShown] = useState(0);
+  const [held, setHeld] = useState(false);
+
+  useEffect(() => {
+    if (!animate || held) return;
+    const timer = setTimeout(() => setShown((s) => (s + 1) % COURSE_PANELS.length), 6000);
+    return () => clearTimeout(timer);
+  }, [animate, held, shown]);
+
+  if (!animate) {
+    return (
+      <div className="lg-courses">
+        {COURSE_PANELS.map((p) => (
+          <div key={p.label} className="lg-course-block">
+            <p className="lg-eyebrow">{p.label}</p>
+            <CourseRows items={p.items} />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="lg-courses"
+      onMouseEnter={() => setHeld(true)}
+      onMouseLeave={() => setHeld(false)}
+      onFocus={() => setHeld(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setHeld(false);
+      }}
+    >
+      <div className="lg-course-tabs">
+        {COURSE_PANELS.map((p, i) => (
+          <button
+            key={p.label}
+            className={i === shown ? "is-active" : undefined}
+            aria-pressed={i === shown}
+            onClick={() => setShown(i)}
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+      <div className="lg-course-stage" aria-live="polite">
+        {COURSE_PANELS.map((p, i) => (
+          <CourseRows key={p.label} items={p.items} className={i === shown ? "is-shown" : undefined} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function About({ motion }) {
   return (
     <Section id="about" index={0} title="Background">
       <div className="lg-about lg-indent">
@@ -116,14 +255,7 @@ function About() {
             <p key={p.slice(0, 24)}>{p}</p>
           ))}
         </div>
-        <div>
-          <p className="lg-eyebrow">Relevant coursework</p>
-          <ul className="lg-rows">
-            {EDUCATION.coursework.map((c) => (
-              <li key={c}>{c}</li>
-            ))}
-          </ul>
-        </div>
+        <Coursework animate={motion} />
       </div>
     </Section>
   );
@@ -133,20 +265,24 @@ function Research() {
   return (
     <Section id="research" index={1} title={RESEARCH.title}>
       <div className="lg-indent">
-        <p className="lg-eyebrow lg-status">
-          <span className="lg-dot" aria-hidden="true" />
-          {RESEARCH.status}
-        </p>
-        <p className="lg-research-lead">{RESEARCH.lead}</p>
-        <ol className="lg-threads">
-          {RESEARCH.threads.map((t, i) => (
-            <li key={t.title}>
-              <span className="lg-thread-num">R.{pad(i)}</span>
-              <h3>{t.title}</h3>
-              <p>{t.body}</p>
-            </li>
-          ))}
-        </ol>
+        <div className="lg-research-grid">
+          <div>
+            <p className="lg-eyebrow lg-status">
+              <span className="lg-dot" aria-hidden="true" />
+              {RESEARCH.status}
+            </p>
+            <p className="lg-research-lead">{RESEARCH.lead}</p>
+          </div>
+          <ol className="lg-threads">
+            {RESEARCH.threads.map((t, i) => (
+              <li key={t.title}>
+                <span className="lg-thread-num">R.{pad(i)}</span>
+                <h3>{t.title}</h3>
+                <p>{t.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
         <blockquote className="lg-principle">{RESEARCH.principle}</blockquote>
         <p className="lg-principle-note">{RESEARCH.closing}</p>
       </div>
@@ -292,13 +428,17 @@ function Contact() {
 }
 
 export default function Ledger() {
-  useBodyBackground("#f5f1e8");
+  const [theme, setTheme] = usePersistentState("lg-theme", systemTheme);
+  const [motion, setMotion] = usePersistentState("lg-motion", !REDUCED_MOTION);
+  const palettes = theme === "dark" ? DARK_PALETTES : LIGHT_PALETTES;
+  useBodyBackground(palettes[0].bg);
   return (
-    <div className="lg">
-      <Nav />
+    <div className="lg" data-theme={theme}>
+      {motion && <BarField palettes={palettes} angle={BAR_ANGLE} />}
+      <Nav theme={theme} setTheme={setTheme} motion={motion} setMotion={setMotion} />
       <main>
         <Hero />
-        <About />
+        <About motion={motion} />
         <Research />
         <Projects />
         <Skills />
@@ -307,7 +447,10 @@ export default function Ledger() {
       <footer className="lg-footer">
         <div className="lg-container">
           <span>© {new Date().getFullYear()} Cadence Anderson</span>
-          <a href="#top">Back to top ↑</a>
+          <span className="lg-footer-links">
+            <a href="/v1/">Past version (Feb 2026)</a>
+            <a href="#top">Back to top ↑</a>
+          </span>
         </div>
       </footer>
     </div>

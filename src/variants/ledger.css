@@ -16,12 +16,42 @@
   --sans: "IBM Plex Sans", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --nav-h: 4.25rem;
+  --nav-bg: rgba(245, 241, 232, 0.86);
+  --on-green: #fff;
+  --frame: var(--ink);
+  --car-btn: rgba(251, 249, 243, 0.94);
 
+  /* No background: the BarField canvas paints the ground behind the page. */
+  position: relative;
   min-height: 100vh;
-  background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
   font-size: 16px;
+}
+
+/* Dark theme: same roles, darker ground. */
+.lg[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #121815;
+  --paper-2: #1c231f;
+  --card: #161d19;
+  --ink: #ece6d8;
+  --ink-2: #c9c2b2;
+  --muted: #968f80;
+  --rule: #2f3833;
+  --green: #6cc39a;
+  --green-2: #8fd4b2;
+  --green-soft: #1f3a2e;
+  --nav-bg: rgba(13, 17, 15, 0.78);
+  --on-green: #0d1411;
+  --frame: #46514b;
+  --car-btn: rgba(22, 29, 25, 0.92);
+}
+
+.lg > main,
+.lg > footer {
+  position: relative;
+  z-index: 1;
 }
 
 .lg a,
@@ -61,7 +91,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(245, 241, 232, 0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid transparent;
   transition: border-color 200ms ease;
@@ -85,9 +115,41 @@
 }
 
 .lg-links {
+  order: 1;
   display: flex;
   align-items: center;
   gap: 1.6rem;
+  margin-left: auto;
+}
+
+.lg-tools {
+  order: 2;
+  display: flex;
+  gap: 0.4rem;
+  margin-left: 1.1rem;
+}
+
+.lg-tool {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 150ms ease;
+}
+
+.lg-tool:hover {
+  border-color: var(--ink);
+}
+
+.lg-tool:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
 }
 
 .lg-links a {
@@ -132,6 +194,7 @@
 }
 
 .lg-menu {
+  order: 3;
   display: none;
   font-family: var(--mono);
   font-size: 0.8rem;
@@ -171,13 +234,13 @@
 .lg .lg-btn-primary {
   background: var(--green);
   border-color: var(--green);
-  color: #fff;
+  color: var(--on-green);
 }
 
 .lg .lg-btn-primary:hover {
   background: var(--green-2);
   border-color: var(--green-2);
-  color: #fff;
+  color: var(--on-green);
 }
 
 /* ---------- Hero ---------- */
@@ -300,9 +363,71 @@
 }
 
 .lg-rows li {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 0.75rem;
   padding-block: 0.8rem;
   border-bottom: 1px solid var(--rule);
   font-size: 0.95rem;
+}
+
+.lg-course-code {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  padding-top: 0.2rem;
+}
+
+.lg-course-block + .lg-course-block {
+  margin-top: 1.75rem;
+}
+
+.lg-course-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin-bottom: 0.6rem;
+}
+
+.lg-course-tabs button {
+  padding: 0 0 0.25rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.lg-course-tabs button.is-active {
+  color: var(--ink);
+  border-bottom-color: var(--green);
+}
+
+.lg-course-tabs button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+/* Both lists share one grid cell, so the box keeps the taller list's height. */
+.lg-course-stage {
+  display: grid;
+}
+
+.lg-course-stage > .lg-rows {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 700ms ease, visibility 0s linear 700ms;
+}
+
+.lg-course-stage > .lg-rows.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 700ms ease;
 }
 
 /* ---------- Research ---------- */
@@ -320,33 +445,45 @@
   box-shadow: 0 0 0 3px var(--green-soft);
 }
 
+/* Lead on the left, the three threads stacked on the right. */
+.lg-research-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: start;
+  margin-bottom: 3.5rem;
+}
+
 .lg-research-lead {
   font-family: var(--serif);
   font-size: clamp(1.2rem, 2vw, 1.5rem);
   line-height: 1.5;
-  max-width: 44ch;
-  margin-bottom: 2.75rem;
 }
 
 .lg-threads {
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem;
   border-top: 2px solid var(--ink);
-  padding-top: 1.25rem;
-  margin-bottom: 2.75rem;
+}
+
+.lg-threads li {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  column-gap: 0.5rem;
+  padding-block: 1.1rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 .lg-thread-num {
+  grid-row: span 2;
+  padding-top: 0.45rem;
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--green);
 }
 
 .lg-threads h3 {
-  font-size: 1.45rem;
-  margin: 0.35rem 0 0.6rem;
+  font-size: 1.35rem;
+  margin-bottom: 0.4rem;
 }
 
 .lg-threads p {
@@ -355,12 +492,12 @@
   font-size: 0.95rem;
 }
 
+/* Full width of the section's content column. */
 .lg-principle {
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(1.3rem, 2.4vw, 1.75rem);
-  line-height: 1.4;
-  max-width: 44ch;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  line-height: 1.3;
   padding-left: 1.25rem;
   border-left: 3px solid var(--green);
 }
@@ -491,9 +628,9 @@
 
 .lg .lg-car {
   --car-radius: 2px;
-  --car-border: var(--ink);
+  --car-border: var(--frame);
   --car-bg: var(--card);
-  --car-btn-bg: rgba(251, 249, 243, 0.94);
+  --car-btn-bg: var(--car-btn);
   --car-btn-fg: var(--ink);
   --car-accent: var(--green);
   --car-thumb-radius: 2px;
@@ -574,7 +711,7 @@
 
 .lg .lg-stk {
   --stk-bg: var(--card);
-  --stk-border: var(--ink);
+  --stk-border: var(--frame);
   --stk-depth: var(--paper-2);
   --stk-label: var(--green);
   --stk-item-bg: var(--paper);
@@ -649,6 +786,16 @@
   gap: 1rem;
 }
 
+.lg-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.lg .lg-footer-links a:hover {
+  color: var(--green);
+}
+
 /* ---------- Responsive ---------- */
 /* Short laptop windows (about 1440x800): drop the thumbnail strip (dots stay) and
    tighten the stack so a case still fits under the nav. */
@@ -705,6 +852,11 @@
     display: block;
   }
 
+  .lg-tools {
+    margin-left: auto;
+    margin-right: 0.6rem;
+  }
+
   .lg-links {
     position: absolute;
     top: var(--nav-h);
@@ -741,7 +893,7 @@
 
   .lg-hero-grid,
   .lg-about,
-  .lg-threads {
+  .lg-research-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 2.25rem;
   }
@@ -766,7 +918,7 @@
     z-index: 10;
     margin-inline: calc(-1 * clamp(1.25rem, 5vw, 3rem));
     padding: 0.5rem clamp(1.25rem, 5vw, 3rem);
-    background: rgba(245, 241, 232, 0.95);
+    background: var(--nav-bg);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--rule);
   }

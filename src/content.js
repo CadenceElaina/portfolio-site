@@ -51,6 +51,28 @@ export const EDUCATION = {
 
 // Research copy is the LinkedIn bio verbatim (em dash swapped for commas).
 // Only `title` and the thread titles are added labels.
+// Coursework with course codes (from the unofficial transcript). `current` is the
+// in-progress term: move finished courses into `completed` (or drop them) each term.
+export const COURSES = {
+  completed: [
+    { code: "ITSC 2214", title: "Data Structures & Algorithms" },
+    { code: "ITSC 2175", title: "Logic & Algorithms" },
+    { code: "ITSC 3160", title: "Database Design & Implementation" },
+    { code: "MATH 1241/1242", title: "Calculus I & II" },
+  ],
+  current: {
+    term: "Fall 2026",
+    items: [
+      { code: "ITSC 3155", title: "Software Engineering" },
+      { code: "ITIS 4166", title: "Backend Application Development" },
+      { code: "ITSC 2181", title: "Introduction to Computer Systems" },
+      { code: "MATH 2164", title: "Matrices & Linear Algebra" },
+      { code: "STAT 2122", title: "Intro to Probability & Statistics" },
+      { code: "ITSC 3688", title: "Computing and AI: Ethics, Society & Communication" },
+    ],
+  },
+};
+
 export const RESEARCH = {
   status: "Undergraduate research · UNC Charlotte",
   title: "Finding where students get stuck",

@@ -82,7 +82,31 @@ export function useBodyBackground(color) {
   }, [color]);
 }
 
-const REDUCED_MOTION =
+// useState that remembers explicit choices in localStorage. Only the setter writes,
+// so a default derived from system settings keeps following the system until the
+// visitor picks something. Storage can be blocked, hence the try/catch.
+export function usePersistentState(key, initial) {
+  const [value, setValue] = useState(() => {
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw !== null) return JSON.parse(raw);
+    } catch {
+      // storage unavailable: fall through to the default
+    }
+    return typeof initial === "function" ? initial() : initial;
+  });
+  const set = (next) => {
+    setValue(next);
+    try {
+      localStorage.setItem(key, JSON.stringify(next));
+    } catch {
+      // storage unavailable: the choice lasts for this page view only
+    }
+  };
+  return [value, set];
+}
+
+export const REDUCED_MOTION =
   typeof window !== "undefined" &&
   window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
