@@ -6,8 +6,8 @@
   --paper-2: #ebe5d6;
   --card: #fbf9f3;
   --ink: #1c1b18;
-  --ink-2: #46423a;
-  --muted: #77715f;
+  --ink-2: #3a362f;
+  --muted: #625c4c;
   --rule: #d8cfbb;
   --green: #1d5b43;
   --green-2: #144431;
@@ -22,7 +22,7 @@
   --frame: var(--ink);
   --car-btn: rgba(251, 249, 243, 0.94);
 
-  /* No background: the BarField canvas paints the ground behind the page. */
+  /* No background: the WaveField canvas paints the ground behind the page. */
   position: relative;
   min-height: 100vh;
   color: var(--ink);
@@ -37,8 +37,8 @@
   --paper-2: #1c231f;
   --card: #161d19;
   --ink: #ece6d8;
-  --ink-2: #c9c2b2;
-  --muted: #968f80;
+  --ink-2: #ddd6c6;
+  --muted: #aba495;
   --rule: #2f3833;
   --green: #6cc39a;
   --green-2: #8fd4b2;
@@ -53,6 +53,22 @@
 .lg > footer {
   position: relative;
   z-index: 1;
+}
+
+/* Halo in the current background colour: invisible on plain background, but it
+   fades the wave lines out where they pass behind letters. Skipped on filled
+   elements (buttons, screenshots, stack), where it would smudge. */
+.lg main {
+  --halo: color-mix(in srgb, var(--lg-ground, #f5f1e8) 90%, transparent);
+  text-shadow: 0 0 4px var(--halo), 0 0 12px var(--halo);
+}
+
+.lg[data-theme="dark"] main {
+  --halo: color-mix(in srgb, var(--lg-ground, #0f1714) 90%, transparent);
+}
+
+.lg main :is(.lg-btn, .car, .stk, .lg-proj-index a.is-active) {
+  text-shadow: none;
 }
 
 .lg a,

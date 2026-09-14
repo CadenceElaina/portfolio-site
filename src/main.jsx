@@ -7,8 +7,7 @@ import VariantSwitcher, { ScrollToHash } from './VariantSwitcher.jsx'
 // Each variant is lazy-loaded so only its own CSS ends up on the page.
 const VARIANTS = [
   { key: 'current', label: 'Current', load: () => import('./App.jsx') },
-  { key: 'ledger', label: 'Ledger · Bars', load: () => import('./variants/Ledger.jsx') },
-  { key: 'ledger-wave', label: 'Ledger · Wave', load: () => import('./variants/LedgerWave.jsx') },
+  { key: 'ledger', label: 'Ledger', load: () => import('./variants/Ledger.jsx') },
   { key: 'graphite', label: 'Graphite', load: () => import('./variants/Graphite.jsx') },
   { key: 'tiles', label: 'Tiles', load: () => import('./variants/Tiles.jsx') },
 ]

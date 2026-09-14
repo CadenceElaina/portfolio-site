@@ -23,28 +23,24 @@ import {
 } from "../hooks";
 import Carousel from "../components/Carousel";
 import StackDiagram from "../components/StackDiagram";
-import BarField from "../components/BarField";
 import WaveField from "../components/WaveField";
 import "./ledger.css";
 
-// Background palettes: page ground plus bar colours (primary first, then accents).
+// Background palettes: page ground plus wave colours (primary first, then accents).
 // Grounds within a theme share a similar lightness so text contrast holds all cycle.
 const LIGHT_PALETTES = [
-  { bg: "#f5f1e8", bars: ["#1d5b43", "#9cc3ad", "#d4a95a"], alpha: 0.13, capAlpha: 0.22 },
-  { bg: "#eef2ea", bars: ["#2f6d55", "#a9c7b8", "#e0a37c"], alpha: 0.13, capAlpha: 0.22 },
-  { bg: "#edf0f4", bars: ["#2d4f7c", "#aebfd6", "#e3b25d"], alpha: 0.13, capAlpha: 0.22 },
-  { bg: "#f6eeea", bars: ["#8a3b2e", "#e0b9ab", "#8fb3a0"], alpha: 0.13, capAlpha: 0.22 },
+  { bg: "#f5f1e8", colors: ["#1d5b43", "#9cc3ad", "#d4a95a"], alpha: 0.13 },
+  { bg: "#eef2ea", colors: ["#2f6d55", "#a9c7b8", "#e0a37c"], alpha: 0.13 },
+  { bg: "#edf0f4", colors: ["#2d4f7c", "#aebfd6", "#e3b25d"], alpha: 0.13 },
+  { bg: "#f6eeea", colors: ["#8a3b2e", "#e0b9ab", "#8fb3a0"], alpha: 0.13 },
 ];
 
 const DARK_PALETTES = [
-  { bg: "#0f1714", bars: ["#2e7d5b", "#1d5b43", "#c9a45c"], alpha: 0.2, capAlpha: 0.32 },
-  { bg: "#0f1420", bars: ["#3b64a0", "#23406e", "#d07a52"], alpha: 0.2, capAlpha: 0.32 },
-  { bg: "#17111c", bars: ["#7a4f8f", "#4a2b5e", "#d9a441"], alpha: 0.2, capAlpha: 0.32 },
-  { bg: "#1a1310", bars: ["#a3563a", "#6b3420", "#6fa08a"], alpha: 0.2, capAlpha: 0.32 },
+  { bg: "#0f1714", colors: ["#2e7d5b", "#1d5b43", "#c9a45c"], alpha: 0.2 },
+  { bg: "#0f1420", colors: ["#3b64a0", "#23406e", "#d07a52"], alpha: 0.2 },
+  { bg: "#17111c", colors: ["#7a4f8f", "#4a2b5e", "#d9a441"], alpha: 0.2 },
+  { bg: "#1a1310", colors: ["#a3563a", "#6b3420", "#6fa08a"], alpha: 0.2 },
 ];
-
-// Prototype switch: ?v=ledger&bars=diagonal tilts the bars; default is horizontal.
-const BAR_ANGLE = new URLSearchParams(window.location.search).get("bars") === "diagonal" ? -24 : 0;
 
 const systemTheme = () =>
   window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
@@ -477,8 +473,7 @@ function Contact() {
 // The nav reads --lg-ground so its translucent bar matches the animated background.
 const setGround = (hex) => document.documentElement.style.setProperty("--lg-ground", hex);
 
-// background: "bars" (default) or "wave" (see LedgerWave.jsx).
-export default function Ledger({ background = "bars" }) {
+export default function Ledger() {
   const [theme, setTheme] = usePersistentState("lg-theme", systemTheme);
   const [motion, setMotion] = usePersistentState("lg-motion", !REDUCED_MOTION);
   const palettes = theme === "dark" ? DARK_PALETTES : LIGHT_PALETTES;
@@ -487,16 +482,9 @@ export default function Ledger({ background = "bars" }) {
     setGround(palettes[0].bg);
   }, [palettes, motion]);
 
-  let field = null;
-  if (motion && background === "wave") {
-    field = <WaveField palettes={palettes} additive={theme === "dark"} onGround={setGround} />;
-  } else if (motion) {
-    field = <BarField palettes={palettes} angle={BAR_ANGLE} onGround={setGround} />;
-  }
-
   return (
     <div className="lg" data-theme={theme}>
-      {field}
+      {motion && <WaveField palettes={palettes} additive={theme === "dark"} onGround={setGround} />}
       <Nav theme={theme} setTheme={setTheme} motion={motion} setMotion={setMotion} />
       <main>
         <Hero />

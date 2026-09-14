@@ -3,8 +3,8 @@ import { mixHex, rgba } from "./color";
 
 // PS3-menu-style background on one fixed canvas: translucent ribbons made of many
 // sine lines that slowly fold and drift, over a ground colour that cross-fades
-// through the palettes. Same palette shape as BarField:
-// [{ bg, bars: [primary, ...accents], alpha }]. `additive` brightens overlaps (dark themes).
+// through the palettes. Palettes: [{ bg, colors: [primary, ...accents], alpha }].
+// `additive` brightens overlaps (dark themes).
 // `onGround(hex)` reports the current ground colour so the nav can match it.
 
 const HOLD = 14000;
@@ -58,7 +58,7 @@ export default function WaveField({ palettes, additive = false, onGround }) {
       const f = into > HOLD ? smooth((into - HOLD) / FADE) : 0;
       const from = palettes[cur];
       const to = palettes[(cur + 1) % palettes.length];
-      const color = (slot) => mixHex(from.bars[slot % from.bars.length], to.bars[slot % to.bars.length], f);
+      const color = (slot) => mixHex(from.colors[slot % from.colors.length], to.colors[slot % to.colors.length], f);
       const alpha = from.alpha + (to.alpha - from.alpha) * f;
 
       const ground = mixHex(from.bg, to.bg, Math.round(f * 32) / 32);
