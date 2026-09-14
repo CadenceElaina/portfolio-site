@@ -13,9 +13,9 @@ export const SECTION_IDS = NAV_LINKS.map((l) => l.id);
 
 export const PROFILE = {
   name: "Cadence Anderson",
-  role: "Software engineer · CS education research",
+  role: "Software engineer · CSed research",
   tagline:
-    "I build full-stack software and research how learning systems can find where students get stuck.",
+    "I build full-stack software and research how learning systems can provide better feedback.",
   seeking: "Seeking Summer 2027 internships and research roles",
   email: "cadence.anderson88@gmail.com",
   github: "https://github.com/CadenceElaina",
@@ -49,25 +49,30 @@ export const EDUCATION = {
   ],
 };
 
+// Research copy is the LinkedIn bio verbatim (em dash swapped for commas).
+// Only `title` and the thread titles are added labels.
 export const RESEARCH = {
   status: "Undergraduate research · UNC Charlotte",
   title: "Finding where students get stuck",
-  lead: "Problem decomposition is a foundational skill for programming. Knowing whether a student's gap is procedural (concepts, logic), declarative (syntax, facts), or both lets a learning system direct them to the right practice and explanation.",
+  lead: "Problem decomposition is a foundational skill needed for programming and CS applications. Understanding where the gap is for students, whether procedural (concepts, logic), declarative (syntax, facts), or both, enables learning systems to direct them to appropriate practice and explanations.",
   threads: [
     {
       title: "Prerequisite models",
-      body: "Models that map the requirements of solving problems within a course, paired with labels on each problem for the procedural and declarative skills it takes to solve.",
+      body: "I'm working on prerequisite models that map to the requirements of solving problems within a course, paired with labels on each problem for the procedural and declarative skills it takes to solve.",
     },
     {
       title: "Knowledge tracing",
-      body: "Combined with that structure, knowledge tracing methods can potentially identify where a student's gaps are. Once gaps and misconceptions are named, feedback can actually target them.",
+      body: "Combined with knowledge tracing methods, that structure can potentially identify where a student's gaps are. Once the gaps and misconceptions are named, the feedback and direction a system provides can actually target them.",
     },
     {
       title: "LLM-assisted feedback",
-      body: "Instructors and TAs can't meet every student's needs at every moment. I'm interested in where LLMs fit that shortfall: identifying gaps, giving adequate feedback, and escalating to the right resource, iteratively enough to keep students engaged.",
+      body: "Instructors and TAs can't meet every student's needs at every moment. I'm interested in where LLMs fit into that shortfall and how to make the process iterative to keep students engaged. While LLMs cannot replace instructor assistance, they may be effective in identifying students' gaps, providing adequate feedback, and escalating to the appropriate resource when appropriate.",
     },
   ],
-  principle: "Engagement and resilience ahead of optimal strategy. Any practice is better than none.",
+  principle:
+    "The goal I keep coming back to is engagement and resilience ahead of optimal strategy. Any practice is better than none.",
+  closing:
+    "So much more goes into the process and there are countless factors at play simultaneously, but I hope my efforts move the needle in a positive direction.",
 };
 
 // `stack` is ordered top layer first (what the user touches) down to the foundation.

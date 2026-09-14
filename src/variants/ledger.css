@@ -38,7 +38,7 @@
 }
 
 .lg-container {
-  max-width: 1160px;
+  max-width: 1320px;
   margin: 0 auto;
   padding-inline: clamp(1.25rem, 5vw, 3rem);
 }
@@ -191,6 +191,13 @@
   grid-template-columns: 1.3fr 1fr;
   gap: 4rem;
   align-items: end;
+}
+
+/* No uppercase here so "CSed" keeps its casing. */
+.lg-hero .lg-eyebrow {
+  text-transform: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
 }
 
 .lg-hero-title {
@@ -353,16 +360,24 @@
   font-style: italic;
   font-size: clamp(1.3rem, 2.4vw, 1.75rem);
   line-height: 1.4;
-  max-width: 36ch;
+  max-width: 44ch;
   padding-left: 1.25rem;
   border-left: 3px solid var(--green);
+}
+
+.lg-principle-note {
+  max-width: 62ch;
+  margin-top: 1rem;
+  padding-left: calc(1.25rem + 3px);
+  color: var(--ink-2);
+  line-height: 1.7;
 }
 
 /* ---------- Projects ---------- */
 .lg-projects {
   display: grid;
-  grid-template-columns: 12rem minmax(0, 1fr);
-  gap: 3rem;
+  grid-template-columns: 10.5rem minmax(0, 1fr);
+  gap: 2.5rem;
   align-items: start;
 }
 
@@ -416,9 +431,10 @@
   color: var(--muted);
 }
 
+/* Each case is sized to fit one screen (about 1440x800 and up) below the sticky nav. */
 .lg-case {
-  padding-bottom: 4rem;
-  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -431,9 +447,9 @@
 .lg-case-head {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 1.5rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
 }
 
 .lg-case-num {
@@ -441,25 +457,26 @@
 }
 
 .lg-case-head h3 {
-  font-size: clamp(2.2rem, 4.5vw, 3.25rem);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
   line-height: 1;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.45rem;
 }
 
 .lg-case-summary {
   font-family: var(--serif);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
+  line-height: 1.4;
   color: var(--ink-2);
-  max-width: 46ch;
+  max-width: 60ch;
 }
 
 .lg-case-links {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 1.25rem;
   font-size: 0.9rem;
   flex-shrink: 0;
+  padding-bottom: 0.2rem;
 }
 
 .lg-case-links a {
@@ -480,56 +497,69 @@
   --car-btn-fg: var(--ink);
   --car-accent: var(--green);
   --car-thumb-radius: 2px;
-  margin-bottom: 2.25rem;
 }
 
 .lg .lg-car .car-view {
-  box-shadow: 8px 8px 0 var(--paper-2);
+  box-shadow: 6px 6px 0 var(--paper-2);
 }
 
-.lg-case-body {
+.lg .lg-car .car-thumbs {
+  margin-top: 0.6rem;
+}
+
+.lg .lg-car .car-thumbs button {
+  width: 64px;
+}
+
+.lg-case-grid {
   display: grid;
-  grid-template-columns: 12rem minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 25rem);
   gap: 2.5rem;
+  align-items: start;
+}
+
+.lg-case-stack {
+  margin-top: 1.5rem;
 }
 
 .lg-figures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 1rem;
   border-top: 2px solid var(--ink);
-  align-self: start;
-}
-
-.lg-figures > div {
-  padding-block: 0.9rem;
   border-bottom: 1px solid var(--rule);
+  padding-block: 0.7rem 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
 .lg-figures dd {
   font-family: var(--serif);
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   line-height: 1.1;
   color: var(--green);
   font-variant-numeric: tabular-nums;
 }
 
 .lg-figures dt {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
   color: var(--muted);
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
 }
 
 .lg-bullets {
   list-style: none;
   counter-reset: b -1;
-  margin-bottom: 2rem;
 }
 
 .lg-bullets li {
   counter-increment: b;
   position: relative;
   padding-left: 2rem;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.95rem;
   color: var(--ink-2);
-  line-height: 1.65;
+  line-height: 1.55;
 }
 
 .lg-bullets li::before {
@@ -551,7 +581,10 @@
   --stk-item-fg: var(--ink);
   --stk-radius: 2px;
   --stk-label-font: var(--mono);
-  max-width: 34rem;
+}
+
+.lg .lg-stk .stk-layer {
+  padding-block: 0.4rem;
 }
 
 /* ---------- Skills ---------- */
@@ -617,6 +650,56 @@
 }
 
 /* ---------- Responsive ---------- */
+/* Short laptop windows (about 1440x800): drop the thumbnail strip (dots stay) and
+   tighten the stack so a case still fits under the nav. */
+@media (min-width: 1181px) and (max-height: 880px) {
+  .lg .lg-car .car-thumbs {
+    display: none;
+  }
+
+  .lg-case-head {
+    margin-bottom: 1rem;
+  }
+
+  .lg-case-stack {
+    margin-top: 1.1rem;
+  }
+
+  .lg .lg-stk .stk-layers {
+    gap: 5px;
+  }
+
+  .lg .lg-stk .stk-layer {
+    padding-block: 0.3rem;
+  }
+}
+
+/* Too narrow for two case columns: one column, order carousel, figures, bullets, stack. */
+@media (max-width: 1180px) {
+  .lg-case-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .lg-case-media,
+  .lg-case-text {
+    display: contents;
+  }
+
+  /* Without the cap the flex item grows to the thumbnail strip's full width. */
+  .lg .lg-car {
+    min-width: 0;
+    max-width: 100%;
+    margin-bottom: 1.75rem;
+  }
+
+  .lg-case-stack {
+    order: 2;
+    margin-top: 0.75rem;
+  }
+}
+
 @media (max-width: 960px) {
   .lg-menu {
     display: block;
@@ -658,7 +741,6 @@
 
   .lg-hero-grid,
   .lg-about,
-  .lg-case-body,
   .lg-threads {
     grid-template-columns: minmax(0, 1fr);
     gap: 2.25rem;
@@ -741,17 +823,12 @@
     grid-template-columns: 1fr;
     gap: 0.25rem;
   }
-
-  .lg-figures {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0 1rem;
-  }
 }
 
 @media (max-width: 480px) {
   .lg-figures {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
   .lg-footer .lg-container {

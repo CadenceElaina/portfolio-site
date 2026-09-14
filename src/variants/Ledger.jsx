@@ -148,6 +148,7 @@ function Research() {
           ))}
         </ol>
         <blockquote className="lg-principle">{RESEARCH.principle}</blockquote>
+        <p className="lg-principle-note">{RESEARCH.closing}</p>
       </div>
     </Section>
   );
@@ -187,26 +188,31 @@ function CaseStudy({ project, index }) {
         <ProjectLinks project={project} />
       </header>
 
-      <Carousel images={project.images} title={project.title} thumbs className="lg-car" />
-
-      <div className="lg-case-body">
-        <dl className="lg-figures">
-          {project.stats.map((s) => (
-            <div key={s.label}>
-              <dd>{s.value}</dd>
-              <dt>{s.label}</dt>
-            </div>
-          ))}
-        </dl>
-        <div>
+      {/* Two columns so a whole project fits one screen: visuals left, text right.
+          Below 1180px the columns collapse and CSS reorders the stack to the end. */}
+      <div className="lg-case-grid">
+        <div className="lg-case-media">
+          <Carousel images={project.images} title={project.title} thumbs className="lg-car" />
+          <div className="lg-case-stack">
+            <p className="lg-eyebrow">Stack</p>
+            <StackDiagram stack={project.stack} tested={project.tested} className="lg-stk" />
+          </div>
+        </div>
+        <div className="lg-case-text">
+          <dl className="lg-figures">
+            {project.stats.map((s) => (
+              <div key={s.label}>
+                <dd>{s.value}</dd>
+                <dt>{s.label}</dt>
+              </div>
+            ))}
+          </dl>
           <p className="lg-eyebrow">What I built</p>
           <ul className="lg-bullets">
             {project.bullets.map((b) => (
               <li key={b}>{b}</li>
             ))}
           </ul>
-          <p className="lg-eyebrow">Stack</p>
-          <StackDiagram stack={project.stack} tested={project.tested} className="lg-stk" />
         </div>
       </div>
     </article>
