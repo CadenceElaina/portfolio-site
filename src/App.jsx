@@ -295,7 +295,7 @@ function About() {
             <div className="detail-item">
               <p className="detail-label">Education</p>
               <p className="detail-value">B.S. Computer Science — UNCC</p>
-              <p className="detail-sub">Expected Fall 2027 · GPA 3.66</p>
+              <p className="detail-sub">Expected Fall 2027 · GPA 3.33</p>
             </div>
             <div className="detail-item">
               <p className="detail-label">Concentration</p>
