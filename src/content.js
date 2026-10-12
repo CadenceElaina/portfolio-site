@@ -141,6 +141,35 @@ export const PROJECTS = [
     images: ["/aurora1.png", "/aurora2.png"],
   },
   {
+    id: "tack",
+    title: "Tack",
+    featured: false,
+    category: "Homelab · AI agents",
+    summary:
+      "A desktop reminders panel that grew into a home server: Canvas deadlines, cross-machine sync, and a Discord bot I can text from my phone. I designed it and directed the build; Claude Code wrote the implementation.",
+    stats: [
+      { value: "3B", label: "local model routes every message" },
+      { value: "0", label: "servers needed for sync" },
+      { value: "42", label: "tests" },
+    ],
+    bullets: [
+      "Discord bot classifies each DM with a small local model (Ollama) constrained to JSON; deadlines and grades are answered by deterministic handlers with no LLM call, and only open-ended questions go to Claude Code running inside my notes vault",
+      "Record-level sync across machines through a private GitHub repo: every record carries an edit timestamp, deletes leave tombstones, and the newer copy wins per record instead of per file",
+      "Canvas integration over the calendar feed and REST API drives an 8h/4h/2h/1h urgency ladder; the phone ingest endpoint binds only to the Tailscale address, so it is never exposed on a public network",
+    ],
+    stack: [
+      { layer: "Interface", items: ["GTK (PyGObject)", "GNOME Shell extension", "Discord bot"] },
+      { layer: "Routing", items: ["Ollama (3B)", "Claude Code"] },
+      { layer: "Data", items: ["Canvas API", "GitHub API"] },
+      { layer: "Host", items: ["ThinkPad T480s", "Fedora", "Tailscale"] },
+    ],
+    tested: ["behaviour tests", "intent-routing eval"],
+    github: null,
+    live: null,
+    video: null,
+    images: ["/tack1.png", "/tack2.png"],
+  },
+  {
     id: "journal",
     title: "Journal",
     featured: false,

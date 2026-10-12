@@ -300,9 +300,11 @@ function ProjectLinks({ project }) {
           Demo video ↗
         </a>
       )}
-      <a href={project.github} target="_blank" rel="noopener noreferrer">
-        Source ↗
-      </a>
+      {project.github && (
+        <a href={project.github} target="_blank" rel="noopener noreferrer">
+          Source ↗
+        </a>
+      )}
     </div>
   );
 }
