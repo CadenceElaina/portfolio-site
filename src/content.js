@@ -146,11 +146,11 @@ export const PROJECTS = [
     featured: false,
     category: "Homelab · AI agents",
     summary:
-      "A desktop reminders panel that grew into a home server: Canvas deadlines, cross-machine sync, and a Discord bot I can text from my phone. I designed it and directed the build; Claude Code wrote the implementation.",
+      "A desktop sticky note that grew into a home server: Canvas deadlines, cross-machine sync, and a Discord bot I can text from my phone. I designed it and directed the build; Claude Code wrote the implementation.",
     stats: [
       { value: "3B", label: "local model routes every message" },
       { value: "0", label: "servers needed for sync" },
-      { value: "42", label: "tests" },
+      { value: "1,000+", label: "behaviour checks" },
     ],
     bullets: [
       "Discord bot classifies each DM with a small local model (Ollama) constrained to JSON; deadlines and grades are answered by deterministic handlers with no LLM call, and only open-ended questions go to Claude Code running inside my notes vault",
@@ -167,7 +167,7 @@ export const PROJECTS = [
     github: null,
     live: null,
     video: null,
-    images: ["/tack1.png", "/tack2.png"],
+    images: ["/tack1.png", "/tack2.png", "/tack3.png", "/tack4.png"],
   },
   {
     id: "journal",
