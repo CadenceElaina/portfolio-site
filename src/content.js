@@ -25,7 +25,7 @@ export const PROFILE = {
 
 export const HIGHLIGHTS = [
   { label: "Research", value: "CS education and adaptive learning systems" },
-  { label: "Studying", value: "B.S. Computer Science (Data Science), UNC Charlotte, Spring 2027" },
+  { label: "Studying", value: "B.S. Computer Science (Data Science), UNC Charlotte, Fall 2027" },
   { label: "Previously", value: "Six years in financial services, teller to financial advisor" },
   { label: "Seeking", value: "Summer 2027 SWE internships and research positions" },
 ];
